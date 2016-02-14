@@ -56,6 +56,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+   .state('app.serviceHistory.singleHistory', {
+      url: '/singleHistory',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/singleHistory.html',
+        
+        }
+      }
+    })
     .state('app.notification', {
       url: '/notification',
       views: {

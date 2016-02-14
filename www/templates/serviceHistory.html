@@ -1,21 +1,29 @@
-<ion-view view-title="Service History">
-<br><br>
+<ion-view>
+<ion-content>
 <div class="list">
 <!-- upper section -->
+<div class="row padding title_breadcrumb_box">
+    <div class="col col-33"><i class="icon ion-android-arrow-back"></i>&nbsp;<b>Go Back</b></div>
+    <div class="col col-33">
+        <p class="title text-center">Service History</p>
+    </div>
+    <div class="col col-33 text-right"><b>Close</b>&nbsp;<i class="icon ion-close"></i></div>
+</div>
+<div class="card padding">              
  <div class="row">
- 	<div class="col col-25">
+ 	<div class="col col-30 item-wrapper">
   		<label class="item item-input item-select">
 		    <div class="input-label">
-		      Grad. Year
+		      School Year
 		    </div>
 		    <select>
-		      <option>Blue</option>
-		      <option selected>Green</option>
-		      <option>Red</option>
+		      <option>A</option>
+		      <option selected>b</option>
+		      <option>c</option>
 		    </select>
 		</label>
 	</div>
-	<div class="col col-25">
+	<div class="col col-30 item-wrapper">
   		<label class="item item-input item-select">
 		    <div class="input-label">
 		      View Status
@@ -24,60 +32,73 @@
 		      <option>Accepted</option>
 		      <option selected>Pending</option>
 		      <option>Rejected</option>
-		      <option>None</option>
 		    </select>
 		</label>
 	</div>
 	
-	<div class="col col-25">
+	<div class="col col-33 item-wrapper">
 		 <label class="item item-input">
 		    <i class="icon ion-search placeholder-icon"></i>
 		    <input type="text" placeholder="Search">
 		  </label>
 	</div>
-	<div class="col col-25">
+<!-- 	<div class="col col-25">
 		<h4>Total Hours: <b>12</b></h4>
-	</div>
+	</div> -->
   </div>
+  <br>
+  <hr>
   <div class="row">
-
-  	<div class="list col">
-
-		 <div class="item" href="#" on-hold="onHold()">
-		    <div class="col">Annual Tree Plantation at zurn building</div>
-		    <div class="row">
-		    	<div class="col col-20">
-		    		<span>27/04/2016</span>	
-		    	</div>
-		    	<div class="col col-20">
-		    		<span>Status: <b>Accepted</b></span>	
-		    	</div>		
-		   	</div>
-		 </div>
-		 <div class="item" href="#" on-hold="onHold()">
-		    <div class="col">15th annual GIVE Day by Gannon University</div>
-		    <div class="row">
-		    	<div class="col col-20">
-		    		<span>27/04/2016</span>	
-		    	</div>
-		    	<div class="col col-20">
-		    		<span>Status: <b>Rejected</b></span>	
-		    	</div>		
-		   	</div>
-		 </div>
-		 <div class="item" href="#" on-hold="onHold()">
-		    <div class="col">Annual Tree Plantation at zurn building</div>
-		    <div class="row">
-		    	<div class="col col-20">
-		    		<span>27/04/2016</span>	
-		    	</div>
-		    	<div class="col col-20">
-		    		<span>Status: <b>Accepted</b></span>	
-		    	</div>		
-		   	</div>
-		 </div>
-	</div>
+  	   <script id="templates/home.html" type="text/ng-template">
+      <ion-view view-title="Home">
+        <ion-content class="padding">
+          <p>
+            <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
+          </p>
+        </ion-content>
+      </ion-view>
+    </script>
+	  	<div class="list col history_box">
+			 <div class="item" href="#" on-hold="onHold()">
+			 	<a href="#/app/serviceHistory/singleHistory">
+			    <div class="col padd0"><p>Annual Tree Plantation at zurn building</p></div>
+			    <div class="row padd0">
+			    	<div class="col col-20 padd0">
+			    		<span><i class="icon ion-calendar"></i>&nbsp;27/04/2016</span>	
+			    	</div>
+			    	<div class="col col-20 padd0">
+			    		<span><i class="icon ion-ios-information-outline"></i>&nbsp;Status: <b>Accepted</b></span>	
+			    	</div>		
+			   	</div>
+			   	</a>
+			 </div>
+			 <div class="item" href="#" on-hold="onHold()">
+			    <div class="col padd0"><p>15th annual GIVE Day by Gannon University</p></div>
+			    <div class="row padd0">
+			    	<div class="col col-20 padd0">
+			    		<span><i class="icon ion-calendar"></i>&nbsp;27/04/2016</span>	
+			    	</div>
+			    	<div class="col col-20 padd0">
+			    		<span><i class="icon ion-ios-information-outline"></i>&nbsp;Status: <b>Rejected</b></span>	
+			    	</div>		
+			   	</div>
+			 </div>
+			 <div class="item" href="#" on-hold="onHold()">
+			    <div class="col padd0"><p>Annual Tree Plantation at zurn building</p></div>
+			    <div class="row padd0">
+			    	<div class="col col-20 padd0">
+			    		<span><i class="icon ion-calendar"></i>&nbsp;27/04/2016</span>	
+			    	</div>
+			    	<div class="col col-20 padd0">
+			    		<span><i class="icon ion-ios-information-outline"></i>&nbsp;Status: <b>Accepted</b></span>	
+			    	</div>		
+			   	</div>
+			 </div>
+		</div>
+	
   </div>
 </div>
+</div>
+</ion-content>
 </ion-view>
 
