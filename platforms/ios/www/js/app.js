@@ -10,6 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    cordova.plugins.Keyboard.disableScroll(true)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -42,7 +43,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/volunteerForm',
     views: {
       'menuContent': {
-        templateUrl: 'templates/volunteerForm.html'
+        templateUrl: 'templates/volunteerForm.html',
+        controller:'volunteerFormCtrl'
       }
     }
   })
@@ -53,6 +55,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         'menuContent': {
           templateUrl: 'templates/serviceHistory.html',
           controller:'serviceHistoryCtrl'
+        }
+      }
+    })
+   .state('app.serviceHistory.singleHistory', {
+      url: '/singleHistory',
+      views: {
+        'serviceView': {
+          templateUrl: 'templates/singleHistory.html'
+        
         }
       }
     })

@@ -61,4 +61,19 @@ angular.module('starter.controllers', [])
              }
            });
     }
+
 })
+.controller('volunteerFormCtrl',function($scope,$http,$ionicLoading){
+    $scope.submit = function(sn){
+        $ionicLoading.show();
+        var data = {email:sn};
+        //console.log($scope.organizaton);
+        var res = $http.post('http://eservicetracker.com/api/services/volunteerPost.php',data);
+        res.success(function(data, status, headers, config) {
+            console.log(sn);
+            console.log(data);
+            $scope.message = "Successfully added your work hours";
+            $ionicLoading.hide();
+        });
+    }
+});

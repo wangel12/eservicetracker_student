@@ -1,21 +1,24 @@
 <ion-view>
 	<ion-content>
-				<div class="row padding title_breadcrumb_box">
-                    <div class="col col-33"><i class="icon ion-android-arrow-back"></i>&nbsp;<b>Go Back</b></div>
-                    <div class="col col-33">
-                        <p class="title text-center">NEW VOLUNTEER FORM</p>
-                    </div>
-                    <div class="col col-33 text-right"><b>Close</b>&nbsp;<i class="icon ion-close"></i></div>
-                </div>
-		<div class="list padding card">
-
+		<div class="row padding title_breadcrumb_box">
+            <div class="col col-33"><i class="icon ion-android-arrow-back"></i>&nbsp;<b>Go Back</b></div>
+            <div class="col col-33">
+                <p class="title text-center">NEW VOLUNTEER FORM</p>
+            </div>
+            <div class="col col-33 text-right"><b>Close</b>&nbsp;<i class="icon ion-close"></i></div>
+        </div>
+		<div class="col col-100 col-offset-20">
+		<div>{{message}}</div>
+		<form name="serviceForm" novalidate>	
 		  <label class="item item-input col col-50">
-		    <input type="text" placeholder="Service Name">
+		    <input type="text" placeholder="Service Name" name="serviceName" ng-model="serviceName" ng-minlength="5">
 		  </label>
+		  <p ng-show="serviceForm.serviceName.$error.required">*Servicename is required</p>
+		  <br>
 		  <label class="item item-input col col-50">
 		    <input type="text" placeholder="Organization">
 		  </label>
-		
+			<br>
 		  <label class="item item-input col col-50">
 		    <input type="text" placeholder="Site Name (Address)">
 		  </label>
@@ -59,10 +62,11 @@
 		    <textarea placeholder="Description of Service"></textarea>
 		  </label>
 		  <br><br>
-		  <button class="button button-positive">
+		  	<button class="button button-positive" ng-disabled="serviceForm.$invalid" ng-click="submit(serviceName)">
 		   	Submit Form
 		   </button>
 		<br><br>
+		</form>
 		</div>
 	</ion-content>
 </ion-view>

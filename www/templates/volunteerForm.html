@@ -1,68 +1,79 @@
 <ion-view>
 	<ion-content>
-				<div class="row padding title_breadcrumb_box">
-                    <div class="col col-33"><i class="icon ion-android-arrow-back"></i>&nbsp;<b>Go Back</b></div>
-                    <div class="col col-33">
-                        <p class="title text-center">NEW VOLUNTEER FORM</p>
-                    </div>
-                    <div class="col col-33 text-right"><b>Close</b>&nbsp;<i class="icon ion-close"></i></div>
-                </div>
-		<div class="list padding card">
+		<div class="row padding title_breadcrumb_box">
+            <div class="col col-33"><i class="icon ion-android-arrow-back"></i>&nbsp;<b>Go Back</b></div>
+            <div class="col col-33">
+                <p class="title text-center">NEW VOLUNTEER FORM</p>
+            </div>
+            <div class="col col-33 text-right"><b>Close</b>&nbsp;<i class="icon ion-close"></i></div>
+        </div>
+        <ui-view name="successView">
 
-		  <label class="item item-input col col-50">
-		    <input type="text" placeholder="Service Name">
-		  </label>
-		  <label class="item item-input col col-50">
-		    <input type="text" placeholder="Organization">
-		  </label>
-		
-		  <label class="item item-input col col-50">
-		    <input type="text" placeholder="Site Name (Address)">
-		  </label>
-		  <label class="item item-input col col-25">
-		    <input type="text" placeholder="Hours">
-		  </label>
+			<div class="col col-100 col-offset-20">
+			<div>{{message}}</div>
+			<form name="serviceForm" novalidate>	
+			  	<label class="item item-input col col-50">
+			    	<input type="text" placeholder="Organization Description (Required)" ng-model="service.orgname">
+			  	</label><br>
+			
+				<label class="item item-input col col-50">
+					<input type="text" placeholder="Site Address (Required)" ng-model="service.siteaddress">
+				</label><br>	
+
+				<!-- <label class="item item-input col col-25">
+					<input type="text" placeholder="Hours (Required)" ng-model="service.hours" input-obj="datepickerObject">
+				</label><br> -->	
 	
-		  <label class="item item-input item-select col col-50">
-		    <div class="input-label">
-		      Select Advisor
-		    </div>
-		    <select>
-		      <option>Joe Bell</option>
-		      <option selected>John Doe</option>
-		      <option>Nicholas Cage</option>
-		    </select>
-		  </label>
-	
-		  <label class="item item-input item-select col col-50">
-		    <div class="input-label">
-		      Type of Service
-		    </div>
-		    <select>
-		      <option>Service A</option>
-		      <option selected>Service B</option>
-		      <option>Service C</option>
-		    </select>
-		  </label>
-		
-		  <label class="item item-input col col-50">
-		    <input type="text" placeholder="Supervisor Name">
-		  </label>
-		  <label class="item item-input col col-50">
-		    <input type="text" placeholder="Supervisor Contact (Telephone - Optional)">
-		  </label>
-		  <label class="item item-input col col-50">
-		    <input type="text" placeholder="Supervisor Email">
-		  </label>
-		  
-		  <label class="item item-input col col-50">
-		    <textarea placeholder="Description of Service"></textarea>
-		  </label>
-		  <br><br>
-		  <button class="button button-positive">
-		   	Submit Form
-		   </button>
-		<br><br>
-		</div>
+				<ionic-datepicker input-obj="datepickerObject">
+				  	<label class="item item-input col col-25">
+						<input type="text" placeholder="Service Date (Required)" ng-model="service.date" ng-value="date" input-obj="datepickerObject">
+					</label><br>
+				</ionic-datepicker>
+				<label class="item item-input col col-25">
+						<input type="text" placeholder="Hours (Required)" ng-model="service.hours">
+				</label><br>
+				<div class="row padd0">
+					  	<label class="item item-input item-select col col-25">
+						    <div class="input-label">
+						      <p>Advisor</p>
+						    </div>
+						    <select ng-model="service.advisor">
+						      <option>Joe Bell</option>
+						      <option selected>John Doe</option>
+						      <option>Nicholas Cage</option>
+						    </select>
+					  	</label>&nbsp;	
+					  	<label class="item item-input item-select col col-25">
+						    <div class="input-label">
+						      <p>Service Type</p>
+						    </div>
+						    <select ng-model="service.serviceType">
+						      <option>Service A</option>
+						      <option selected>Service B</option>
+						      <option>Service C</option>
+						    </select>
+					  	</label>
+				</div><br>
+
+			  	<label class="item item-input col col-50">
+			    	<input type="text" placeholder="Supervisor Name" ng-model="service.supervisor">
+			  	</label><br>
+
+			  	<label class="item item-input col col-50">
+				    <input type="text" placeholder="Supervisor Contact (Telephone - Optional)" ng-model="service.telephone">
+			  	</label><br>
+
+			  	<label class="item item-input col col-50">
+			    	<input type="text" placeholder="Supervisor Email" ng-model="service.sEmail">
+			  	</label><br>
+
+			  	<button class="button button-positive" ng-click="submit(service)">
+			   		Submit Form
+			   	</button>
+			</form>
+			<!-- <pre>{{service | json}}</pre> -->
+			<!-- <pre>master = {{master | json}}</pre> -->
+			</div>
+		</ui-view>
 	</ion-content>
 </ion-view>

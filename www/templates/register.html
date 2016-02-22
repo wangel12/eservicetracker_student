@@ -1,0 +1,66 @@
+<ionic-content>
+	<div class="row col col-50 col-offset-25">
+			<h1 class="text-center">Register</h1>
+			<form name="registerForm" novalidate>
+			<div class="row padd0">
+				<div class="col">
+					<label class="item item-input">
+			    		<input type="text" placeholder="Firstname (Required)" ng-model="register.fname">
+			  		</label>
+				</div>
+				<div class="col">
+					<label class="item item-input">
+			    		<input type="text" placeholder="Lastname (Required)" ng-model="register.lname">
+			  		</label>	
+				</div>	  	
+			</div>
+			<div class="row padd0">
+				<div class="col">
+					<label class="item item-input">
+			    		<input type="email" placeholder="School Email (Required)" ng-model="register.email">
+			  		</label>
+				</div>
+				<div class="col">
+					<label class="item item-input">
+			    		<input type="email" placeholder="Confirm Email" ng-model="register.conemail">
+			  		</label>	
+				</div>	  	
+			</div>
+			<div class="row padd0">
+				<div class="col">
+					<label class="item item-input item-select col col-75">
+						    <div class="input-label">
+						      <p>Graduation Year</p>
+						    </div>
+						    <select ng-model="register.gradYear">
+						      <option selected>2015</option>
+						      <option>2014</option>
+						      <option>2013</option>
+						    </select>
+					  	</label>
+				</div>			
+			</div><br><br>
+			<p class="text-center">Minimum 6 digit password required with at least 1 special char.</p>
+			<div class="row padd0">
+				<div class="col">
+					<label class="item item-input">
+			    		<input type="password" placeholder="Password" ng-model="register.password">
+			  		</label>
+				</div>
+				<div class="col">
+					<label class="item item-input">
+			    		<input type="password" placeholder="Confirm Password" ng-model="register.conpass">
+			  		</label>
+				</div>
+			</div><br>
+			<div class="row">
+				<ion-checkbox ng-model="register.checked">I agree to the terms &amp; conditions</ion-checkbox>
+			</div><br>
+			<div class="row">
+				<button class="button button-positive" ng-click="submit(register)">Register Now</button>
+			</div>
+			</form>
+			{{ register = register | json }}
+
+	</div>
+</ionic-content>

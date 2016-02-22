@@ -49,15 +49,8 @@
   <br>
   <hr>
   <div class="row">
-  	   <script id="templates/home.html" type="text/ng-template">
-      <ion-view view-title="Home">
-        <ion-content class="padding">
-          <p>
-            <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
-          </p>
-        </ion-content>
-      </ion-view>
-    </script>
+  		
+  		<ui-view name="serviceView">
 	  	<div class="list col history_box">
 			 <div class="item" href="#" on-hold="onHold()">
 			 	<a href="#/app/serviceHistory/singleHistory">
@@ -94,8 +87,8 @@
 			    	</div>		
 			   	</div>
 			 </div>
-		</div>
-	
+		</div> 
+  		</ui-view>
   </div>
 </div>
 </div>

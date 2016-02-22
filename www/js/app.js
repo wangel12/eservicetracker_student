@@ -4,12 +4,13 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    //cordova.plugins.Keyboard.disableScroll(true)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -25,7 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     templateUrl: 'templates/menu.html',
 
@@ -38,16 +39,30 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+  .state('register', {
+    url: '/register',
+    templateUrl: 'templates/register.html',
+    controller:'registerCtrl'
+  })
   .state('app.volunteerForm', {
     url: '/volunteerForm',
     views: {
       'menuContent': {
-        templateUrl: 'templates/volunteerForm.html'
+        templateUrl: 'templates/volunteerForm.html',
+        controller:'volunteerFormCtrl'
       }
     }
   })
-
+  .state('app.volunteerForm.success', {
+    url: '/success',
+    views: {
+      'successView': {
+        templateUrl: 'templates/success.html'
+      }
+    }
+  })
   .state('app.serviceHistory', {
+      cache:false,
       url: '/serviceHistory',
       views: {
         'menuContent': {
@@ -59,8 +74,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
    .state('app.serviceHistory.singleHistory', {
       url: '/singleHistory',
       views: {
-        'menuContent': {
-          templateUrl: 'templates/singleHistory.html',
+        'serviceView': {
+          templateUrl: 'templates/singleHistory.html'
         
         }
       }
@@ -82,6 +97,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+
    .state('app.myProfile', {
     url: '/myProfile',
     views: {
