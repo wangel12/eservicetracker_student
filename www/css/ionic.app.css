@@ -14,15 +14,20 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
-.scroll, .scroll-content {
-  background: rbg(243, 243, 243) !important;
-  background: #f5f5f5; }
-
 .padd0 {
   padding-left: 0px;
   padding-right: 0px;
   padding-top: 0px;
   padding-bottom: 0px; }
+
+.view-container {
+  margin-top: 0px !important;
+  padding: 0px !important;
+  background: #EAEAEA !important; }
+
+.card, .pane {
+  margin-top: 0px;
+  padding-top: 0px; }
 
 /*Global Variables*/
 .sub-title {
@@ -39,12 +44,16 @@ $dark:                            #444 !default;
   font-style: italic; }
 
 .title_breadcrumb_box {
-  padding-top: 40px; }
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  background-color: #EAEAEA; }
   .title_breadcrumb_box .title {
     color: #6c7784;
     font-size: 20px;
     font-weight: bold;
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    margin-top: 10px; }
   .title_breadcrumb_box h3 {
     color: black !important; }
 
@@ -81,6 +90,49 @@ $dark:                            #444 !default;
 .item-wrapper {
   border: 2px solid #eaeaea; }
 
-.history_box span {
-  font-size: 10px;
-  line-height: 0; }
+.history_box {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+  padding-top: 10px;
+  background: #f0f0f0; }
+  .history_box .item {
+    width: 100% !important;
+    display: block;
+    background: #EAEAEA; }
+  .history_box span {
+    font-size: 10px;
+    line-height: 0; }
+  .history_box .org-info {
+    padding-bottom: 10px; }
+    .history_box .org-info .org-desc {
+      display: block;
+      padding-top: 10px;
+      padding-left: 10px;
+      width: 100%; }
+      .history_box .org-info .org-desc i {
+        color: #fa6800;
+        font-size: 22px;
+        font-weight: bold;
+        padding-left: 10px; }
+      .history_box .org-info .org-desc span {
+        font-size: 22px;
+        font-weight: 400;
+        padding-left: 5px;
+        letter-spacing: 0px; }
+  .history_box .org-bottom {
+    background-color: #dfdfdf;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px; }
+    .history_box .org-bottom b {
+      font-weight: 600;
+      font-size: 12px; }
+    .history_box .org-bottom i {
+      color: #929292;
+      font-size: 12px; }
+  .history_box .org-info2 span {
+    font-size: 14px;
+    color: #aaaaaa;
+    padding-left: 5px; }
+  .history_box .org-info2 i {
+    color: red; }

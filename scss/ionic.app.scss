@@ -22,8 +22,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 //@import "www/lib/ionic/scss/ionic";
 .scroll,.scroll-content {
-  background: rbg(243,243,243) !important; 
-  background: #f5f5f5;
+//  background: rbg(243,243,243) !important; 
+//  background: #f5f5f5;
 }
 .padd0 {
 	padding-left: 0px;
@@ -31,7 +31,15 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
-
+.view-container {
+	margin-top: 0px !important;
+	padding: 0px !important;
+	background: #EAEAEA !important;
+}
+.card,.pane {
+	margin-top: 0px;
+	padding-top: 0px;
+}
 /*Global Variables*/
 $sub-title-size: 24px;
 $global_word_color:rgb(108,119,132);
@@ -49,12 +57,16 @@ $global_word_color:rgb(108,119,132);
 	font-style: italic;
 }
 .title_breadcrumb_box{
-	padding-top: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 0px;
+	background-color: #EAEAEA;
 	.title{
 		color: $global_word_color; 
 		font-size: 20px;
 		font-weight: bold;
 		text-transform: uppercase;
+		margin-top: 10px;
 	}
 	h3{
 		color: black !important;
@@ -103,10 +115,60 @@ $global_word_color:rgb(108,119,132);
 	border: 2px solid #eaeaea;
 }
 .history_box {
+	margin-bottom: 10px;
+	border-bottom: 1px solid #eaeaea;
+	padding-top: 10px;
+	background: rgb(240,240,240);
+	//width: 100%;
+	.item{
+		width: 100% !important;
+		display: block;
+		background: #EAEAEA;
+	}
 	span {
 		font-size: 10px;
 		line-height: 0;
+
 	}
+	.org-info{
+		padding-bottom: 10px;
+		.org-desc{
+			display: block;
+			//background-color: #EAEAEA;
+			padding-top: 10px;
+			padding-left: 10px;
+			width: 100%;
+			i {
+				color: #fa6800;
+				font-size: 22px;
+				font-weight: bold;
+				padding-left: 10px;
+			}
+			span {
+				font-size: 22px;
+				font-weight: 400;
+				padding-left: 5px;
+				letter-spacing: 0px;
+			}
+		}//
+
+	}//
+	.org-bottom {
+			background-color: rgb(223,223,223);
+			padding-left: 15px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			b{ font-weight: 600; font-size: 12px;}
+			i{ color: rgb(146,146,146); font-size:12px;}
+		}
+
+	.org-info2{
+		//background-color: #EAEAEA;
+		span { font-size: 14px; color: #aaaaaa; padding-left:5px;}
+		i { color: red;}
+	}
+
+
 }
 
 

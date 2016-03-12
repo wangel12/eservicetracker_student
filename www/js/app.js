@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
+angular.module('starter', ['ionic', 'starter.controllers','ngStorage','ngMessages','ionic-datepicker'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$sessionStorage) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,7 +20,21 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    $sessionStorage.status = false;
   });
+
+
+})
+.factory('authService',function($http,$sessionStorage,$state){
+    var authFactory = {};
+    authFactory.checkSession = function(){
+        console.log($sessionStorage.status);
+        if ($sessionStorage.status != true){
+            //console.log("access denied");
+            $state.go('login');
+        }
+    }
+    return authFactory;
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -28,14 +42,22 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
 
   .state('app', {
     url: '/app',
+    abstract:true,
     templateUrl: 'templates/menu.html',
-
+    controller:'AppCtrl'
+  })
+  .state('login',{
+    url:'/login',
+    templateUrl:'templates/login.html',
+    controller:'LoginCtrl'
   })
   .state('app.dashboard', {
     url: '/dashboard',
+    cache:false,
     views: {
       'menuContent': {
-        templateUrl: 'templates/dashboard.html'
+        templateUrl: 'templates/dashboard.html',
+        controller:'dashCtrl'
       }
     }
   })
@@ -44,6 +66,15 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
     templateUrl: 'templates/register.html',
     controller:'registerCtrl'
   })
+  .state('register.confirm',{
+    url:'/:confirm',
+    views:{
+        'registerView':{
+            templateUrl:'templates/registerSuccess.html'
+        }
+    }
+  })
+
   .state('app.volunteerForm', {
     url: '/volunteerForm',
     views: {
@@ -57,12 +88,21 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
     url: '/success',
     views: {
       'successView': {
-        templateUrl: 'templates/success.html'
+        templateUrl: 'templates/formSuccess.html',
+        controller:'volunteerFormSuccessCtrl'
+      }
+    }
+  })
+    .state('app.volunteerForm.edit', {
+    url: '/edit',
+    views: {
+      'successView': {
+        templateUrl: 'templates/editForm.html',
+        controller:'volunteerFormEditCtrl'
       }
     }
   })
   .state('app.serviceHistory', {
-      cache:false,
       url: '/serviceHistory',
       views: {
         'menuContent': {
@@ -71,11 +111,22 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
         }
       }
     })
-   .state('app.serviceHistory.singleHistory', {
+   // .state('app.serviceHistory.singleHistory', {
+   //    url: '/singleHistory',
+   //    views: {
+   //      'serviceView': {
+   //        templateUrl: 'templates/singleHistory.html',
+   //        controller:'singleHistoryCtrl'
+        
+   //      }
+   //    }
+   //  })
+    .state('app.singleHistory', {
       url: '/singleHistory',
       views: {
-        'serviceView': {
-          templateUrl: 'templates/singleHistory.html'
+        'menuContent': {
+          templateUrl: 'templates/serviceHistoryContent.html',
+          controller:'singleHistoryCtrl'
         
         }
       }
@@ -97,7 +148,6 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
       }
     }
   })
-
    .state('app.myProfile', {
     url: '/myProfile',
     views: {
@@ -107,5 +157,6 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-datepicker'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app');
+  $urlRouterProvider.otherwise('/login');
+
 });

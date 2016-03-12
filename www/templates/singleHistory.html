@@ -1,26 +1,30 @@
 <div class="row">
 	<div class="col col-100">
-		<label><b>Organization</b></label>
-		<p>Gannon University Give Service</p>
-		<label><b>Service Date</b></label>
-		<p>21st Feb 2016</p>
-		<label><b>Service Status</b></label>
-		<p>Approved</p>
+		<div class="row">
+			<div class="col">
+				<label><b>Organization</b></label>
+				<p>{{orgname}}</p>
+			</div>
+			<div class="col">
+				<label><b>Organization</b></label>
+				<p>{{orgname}}</p>
+			</div>
+		</div>	
+		
+		<label><b>Date of Service</b></label>
+		<p>{{date}}</p>
+		<label><b>Address</b></label>
+		<p>{{orgaddress}}</p>
 		<label><b>Hours Served</b></label>
 		<p>20 Hours</p>
 		<label><b>Service Description</b></label>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		<label><b>Approved By</b></label>
-		<p>Steven Hawkins steven@vaillaprep.edu</p>
+		<p>{{orgdesc}}</p>
+		<label><b>Advisor</b></label>
+		<p>{{advfname + " " + advlname}}</p>
 		<label><b>Supervised By</b></label>
-		<p>Donald Trumph trumph@vaillaprep.edu</p>
+		<p>{{ supervisor }}</p>
 		<br>
-		<a class="button button-positive" href="#/app/serviceHistory/">Go Back</a>
+		<a class="button button-positive" ng-click="goBack()">Go Back</a>
 	</div>
 	
 </div>

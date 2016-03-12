@@ -33,7 +33,7 @@
         scope.templateType = scope.inputObj.templateType ? (scope.inputObj.templateType) : 'modal';
         scope.modalHeaderColor = scope.inputObj.modalHeaderColor ? (scope.inputObj.modalHeaderColor) : 'bar-stable';
         scope.modalFooterColor = scope.inputObj.modalFooterColor ? (scope.inputObj.modalFooterColor) : 'bar-stable';
-        scope.dateFormat = scope.inputObj.dateFormat ? (scope.inputObj.dateFormat) : 'dd-MM-yyyy';
+
         scope.enableDatesFrom = {epoch: 0, isSet: false};
         scope.enableDatesTo = {epoch: 0, isSet: false};
 

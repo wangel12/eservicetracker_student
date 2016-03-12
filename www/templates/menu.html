@@ -10,7 +10,7 @@
           <li><i class="icon ion-clock"></i></li>
           <li><i class="icon ion-ios-chatboxes-outline"></i></li>
           <li><i class="icon ion-ios-bell-outline"></i></li>
-          <li>Hello, John Doe</li>
+          <li>Hello, {{user_fname}}</li>
           <li class="log-out"><i class="icon ion-log-out"></i></li>
         </ul>
         
@@ -21,10 +21,20 @@
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
-    <ion-nav-view name="menuContent"></ion-nav-view>
+    <ion-nav-view name="menuContent">
+              <!-- upper section -->
+              <div class="row padding title_breadcrumb_box">
+                  <div class="col col-33"><a class="icon-circle icon-circle-outline"><i class="icon ion-android-arrow-back"></i></a></div>
+                  <div class="col col-33">
+                      <p class="title text-center">Yolo</p>
+                  </div>
+                  <div class="col col-33 text-right"><a class="icon-circle icon-circle-outline"><i class="icon ion-close"></i></a></div>
+              </div>
+              <ui-view name=""></ui-view>
+    </ion-nav-view>
   </ion-side-menu-content>
 
-  <ion-side-menu side="left">
+  <ion-side-menu side="left" >
     <ion-header-bar class="bar-stable">
       <h1 class="title">Menu</h1>
     </ion-header-bar>
@@ -48,8 +58,8 @@
         <ion-item menu-close href="#/app/myProfile">
           <i class="icon ion-person"></i>My Profile
         </ion-item>
-        <ion-item menu-close href="#/app">
-          <i class="icon ion-log-out"></i>Log Out
+        <ion-item menu-close ng-click="logout()">
+          <i class="icon ion-log-out"></i>Logout
         </ion-item>
       </ion-list>
     </ion-content>

@@ -1,0 +1,59 @@
+
+<ion-view>
+<ion-content>
+ <div class="row padding title_breadcrumb_box padding-bottom">
+      <div class="col col-33">
+      	<!-- <a class="icon-circle icon-circle-outline"><i class="icon ion-android-arrow-back"></i></a> -->
+      </div>
+      <div class="col col-33">
+          <p class="title text-center">Service History Record</p>
+      </div>
+      <div class="col col-33 text-right">
+      	<!-- <a class="icon-circle icon-circle-outline" ng-click="closeButton()"><i class="icon ion-close"></i></a> -->
+      </div>
+  </div>
+<div class="row">
+	<div class="col col-50 col-offset-25">
+		<br><br>
+		<div class="row padd0">
+			<div class="col">
+				<label><b>Organization</b>: {{messages.org_name}}</label>
+				
+			</div>
+			<div class="col">
+				<label><b>Service Hour</b>: 25</label>
+			</div>
+			<div class="col">
+				<label><b>Status</b>: 
+					<b ng-switch on="messages.sers_id">
+							    <!-- <i class="icon ion-ios-information-outline"></i>&nbsp; -->
+							    <b ng-switch-when="1" class="positive">Accepted</b>
+							    <b ng-switch-when="2" class="assertive">Rejected</b>
+							    <b ng-switch-when="3" class="balanced">Pending</b>
+					</b> 
+				</label>
+			</div>
+		</div>
+		<hr><br>
+		<div class="row" style="background:#EAEAEA;">
+			<b class="text-center col col-100">Service Description</b>
+		</div>
+		<div class="row" style="background:#EAEAEA;">
+			<p class="col col-100">{{ messages.org_desc}}</p>	
+		</div>
+		<br><hr><br>
+		<div class="row">
+			<div class="col"><label><b>Date of Service:</b> {{ messages.ser_date | date:'dd-MM-yyyy'}}</label></div>
+			<div class="col"><label><b>Location</b>: {{messages.org_address}}</label></div>
+		</div>
+		<br><hr><br>
+		<div class="row">
+			<div class="col"><label><b>Advisor:</b> {{ messages.adv_fname + " " +messages.adv_lname}}</label></div>
+			<div class="col"><label><b>Supervisor</b>: James Cameron</label></div>
+		</div>
+		<br><hr><br>
+		<a class="button button-positive" ng-click="goBack()">Go Back</a>
+	</div>
+</div>
+</ion-content>
+</ion-view>

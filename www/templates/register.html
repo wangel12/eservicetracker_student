@@ -1,66 +1,153 @@
-<ionic-content>
-	<div class="row col col-50 col-offset-25">
-			<h1 class="text-center">Register</h1>
-			<form name="registerForm" novalidate>
-			<div class="row padd0">
-				<div class="col">
-					<label class="item item-input">
-			    		<input type="text" placeholder="Firstname (Required)" ng-model="register.fname">
-			  		</label>
-				</div>
-				<div class="col">
-					<label class="item item-input">
-			    		<input type="text" placeholder="Lastname (Required)" ng-model="register.lname">
-			  		</label>	
-				</div>	  	
-			</div>
-			<div class="row padd0">
-				<div class="col">
-					<label class="item item-input">
-			    		<input type="email" placeholder="School Email (Required)" ng-model="register.email">
-			  		</label>
-				</div>
-				<div class="col">
-					<label class="item item-input">
-			    		<input type="email" placeholder="Confirm Email" ng-model="register.conemail">
-			  		</label>	
-				</div>	  	
-			</div>
-			<div class="row padd0">
-				<div class="col">
-					<label class="item item-input item-select col col-75">
-						    <div class="input-label">
-						      <p>Graduation Year</p>
-						    </div>
-						    <select ng-model="register.gradYear">
-						      <option selected>2015</option>
-						      <option>2014</option>
-						      <option>2013</option>
-						    </select>
-					  	</label>
-				</div>			
-			</div><br><br>
-			<p class="text-center">Minimum 6 digit password required with at least 1 special char.</p>
-			<div class="row padd0">
-				<div class="col">
-					<label class="item item-input">
-			    		<input type="password" placeholder="Password" ng-model="register.password">
-			  		</label>
-				</div>
-				<div class="col">
-					<label class="item item-input">
-			    		<input type="password" placeholder="Confirm Password" ng-model="register.conpass">
-			  		</label>
-				</div>
-			</div><br>
-			<div class="row">
-				<ion-checkbox ng-model="register.checked">I agree to the terms &amp; conditions</ion-checkbox>
-			</div><br>
-			<div class="row">
-				<button class="button button-positive" ng-click="submit(register)">Register Now</button>
-			</div>
-			</form>
-			{{ register = register | json }}
+<script type="text/ng-template" id="error-messages">
+	    <p ng-message="minlength">Your password is too short.</p>
+        <p ng-message="maxlength">Your password is too long.</p>
+        <p ng-message="required">This field is required.</p>
+</script>
 
-	</div>
+<ionic-content>
+	<ui-view name="registerView">
+		<div class="row col col-50 col-offset-25">
+				<h1 class="text-center">Register</h1>
+				
+				<form name="registerForm" novalidate>
+				<div class="row padd0">
+					<div class="col">
+						<label class="item item-input">
+				    		<input 
+				    			type="text" 
+				    			placeholder="Firstname (Required)" 
+				    			ng-model="register.fname"
+				    			name="fname"
+				    			ng-minlength="5"
+				    			required>
+				  		</label>
+				  		<div ng-messages="registerForm.fname.$error" ng-if="registerForm.fname.$touched">
+				  			<div ng-messages-include="error-messages"></div>
+					    </div>
+					</div>
+					<div class="col">
+						<label class="item item-input">
+				    		<input type="text" 
+				    		placeholder="Lastname (Required)" 
+				    		ng-model="register.lname"
+				    		name="lname"
+				    		ng-minlength="3"
+				    		required>
+				  		</label>	
+				  		<div ng-messages="registerForm.lname.$error" ng-if="registerForm.lname.$touched">
+				  			<div ng-messages-include="error-messages"></div>
+					    </div>
+					</div>	  	
+				</div>
+				<div class="row padd0">
+					<div class="col">
+						<label class="item item-input">
+				    		<input 
+				    			type="email" 
+				    			placeholder="School Email (Required)" 
+				    			ng-model="register.email"
+				    			name="email"
+				    			ng-minlength="10"
+				    			required>
+				  		</label>
+				  		<div ng-messages="registerForm.email.$error" ng-if="registerForm.email.$touched">
+				  			<div ng-message="minlength">Your email is too short</div>
+				  			<div ng-messages-include="error-messages"></div>
+					    </div>
+					</div>
+					<div class="col">
+						<label class="item item-input">
+				    		<input 
+				    			type="email" 
+				    			placeholder="Confirm Email" 
+				    			ng-model="register.conemail"
+				    			name="conemail"
+				    			required>
+				  		</label>	
+				  		<div ng-messages="registerForm.conemail.$error" ng-if="registerForm.conemail.$touched">
+				  			<div ng-messages-include="error-messages"></div>
+					    </div>
+					</div>	  	
+				</div>
+				<br>
+				<div class="row padd0">
+					<div class="col">
+						<label class="item item-input item-select col col-40">
+							    <div class="input-label">
+							      <p>Graduation Year</p>
+							    </div>
+							    <select ng-model="register.gradYear" required>
+							      <option selected>2017</option>	 
+							      <option>2016</option>	
+							      <option>2015</option>
+							      <option>2014</option>
+							      <option>2013</option>
+
+							    </select>
+						  	</label>
+					</div>			
+				</div><br><br>
+
+				<p class="text-center">Set your password</p>
+				<div class="row padd0">
+					<div class="col">
+						<label class="item item-input">
+				    		<input 
+				    			type="password" 
+				    			placeholder="Password" 
+				    			name="password"
+				    			ng-model="register.password"
+				    			ng-minlength="6"
+				    			required>
+				  		</label>
+				  		<div ng-messages="registerForm.password.$error" ng-if="registerForm.password.$touched">
+				  			<div ng-messages-include="error-messages"></div>
+					    </div>
+					</div>
+					<!-- confirm password -->
+					<div class="col">
+						<label class="item item-input">
+				    		<input type="password" 
+				    		placeholder="Confirm Password"
+				    		name="conpass"
+				    		ng-minlength="6" 
+				    		ng-model="register.conpass"
+				    		ng-pattern="register.password"
+				    		required>
+				  		</label>
+				  		<div ng-messages="registerForm.conpass.$error" ng-if="registerForm.conpass.$touched">
+				  			<div ng-message="minlength">Your password is too short</div>
+				  			<div ng-message="pattern">Your password does not match</div>
+				  			<div ng-messages-include="error-messages"></div>
+				  			
+				  			<!-- <div ng-message="required">This field is required</div> -->
+					    </div>
+					</div>
+				</div><br>
+
+				<div class="row">
+					<label>
+					<ion-checkbox 
+						ng-model="register.checked"
+						type="checkbox"
+						name="agreement"
+						required>I agree to the terms &amp; conditions</ion-checkbox>
+					</label>
+					<div ng-messages="registerForm.agreement.$error">
+			  			<div ng-message="checked">Please agree to the terms and conditions to Register</div>
+				    </div>
+				</div>
+				<br>
+				<div class="row">
+					<button class="button button-positive" 
+					ng-click="submit(register)"
+					ng-disabled="registerForma.$invalid">
+						Register Now
+					</button>
+				</div>
+				</form>
+				Already a member? <a href="#/login">Log in</a> here
+				<!-- {{ register = register | json }} -->
+		</div>
+	</ui-view>
 </ionic-content>
