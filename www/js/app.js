@@ -48,6 +48,7 @@ angular.module('starter', ['ionic', 'starter.controllers','ngStorage','ngMessage
   })
   .state('login',{
     url:'/login',
+    cache:false,
     templateUrl:'templates/login.html',
     controller:'LoginCtrl'
   })
@@ -152,11 +153,13 @@ angular.module('starter', ['ionic', 'starter.controllers','ngStorage','ngMessage
     url: '/myProfile',
     views: {
       'menuContent': {
-        templateUrl: 'templates/myProfile.html'
+        templateUrl: 'templates/myProfile.html',
+        controller:'profileCtrl'
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
+  //$urlRouterProvider.when("/first",{ controller: "profileCtrl",templateUrl:"tpl.html"});
   $urlRouterProvider.otherwise('/login');
 
 });

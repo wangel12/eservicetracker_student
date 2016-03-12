@@ -184,7 +184,12 @@ hr {
 
 
 	
-
+.popmodal {
+      width: 50%;
+      height: 15%;
+      left: 20%;
+      right: 30%;
+}
 
 
 	

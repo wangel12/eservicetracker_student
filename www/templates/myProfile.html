@@ -1,43 +1,174 @@
+<script type="text/ng-template" id="error-messages">
+	    <p ng-message="minlength" class="sub-content assertive">Your password is too short.</p>
+        <p ng-message="maxlength" class="sub-content assertive">Your password is too long.</p>
+        <p ng-message="required" class="sub-content assertive">This field is required.</p>
+</script>
+
 <ion-view view-title="My Profile">
 	<ion-content>
-		<div class="row profile-name-box">
-			<div class="col"><h1 class="padding">John, Doe<i class="icon ion-edit"></i></h1></div>
-		</div>
-		<hr>
-		<div class="row profile-info-box">		
-			<div class="col col-50">
-			  <div class="item-text-wrap padding">
-			    <ul>
-			    	<li><i class="icon ion-email"></i><b class="sub-title">Email</b></li><br>
-			    	<li>john001@vma.edu</li>
-			    	<li>john001@vgmail.com</li><br>
-			    	<li><i class="icon ion-trophy"></i><b class="sub-title">Graduation Year</b></li><br>
-			    	<li>Jan 07 2016</li>
-			    	<li></li>
-			    </ul>
-			  </div>
-			</div>
-
-		</div>
+	 <div class="row padding title_breadcrumb_box padding-bottom">
+      <div class="col col-33">
+      	<!-- <a class="icon-circle icon-circle-outline"><i class="icon ion-android-arrow-back"></i></a> -->
+      </div>
+      <div class="col col-33">
+          <p class="title text-center">profile view</p>
+      </div>
+      <div class="col col-33 text-right">
+      	<!-- <a class="icon-circle icon-circle-outline" ng-click="closeButton()"><i class="icon ion-close"></i></a> -->
+      </div>
+  	</div>
 		<div class="row">
-			<div class="col col-50 padding">
-				<div class="change_password_box">
-					<p class="sub-title">Change Password</p>
-					<b class="sub-content">Must be minimum 6 characters and should include least one special character</b>
-					<br><br>
-					<label class="item item-input">
-					    <input type="password" placeholder="Old Password">
-					</label>
-					<label class="item item-input">
-					    <input type="password" placeholder="New Password">
-					</label>
-					<label class="item item-input">
-					    <input type="password" placeholder="Retype New Password">
-					</label>
-					<br><br>
-		  			<button class="button button-positive">Change Password</button>
-		  		</div>
+			<div class="col col-50 col-offset-25">
+					<div class="row">
+							<div class="col">
+								<b class="text-center" style="display:block;" ng-click="tabProfile()">My Profile</b>
+							</div>
+							<div class="col">
+								<b style="display:block;" class="text-center" ng-click="tabPassword()">Change Password</b>	
+							</div>
+					</div>
+					<hr>
 			</div>
 		</div>
+		<div ng-show="isEven(myNumber)">
+			<div class="row">		
+				<div class="col col-25 col-offset-25">
+				<form name="proForm" novalidate>
+				  <div class="item-text-wrap">
+				    <ul>
+				    	<li><b class="sub-title">Profile Details</b>  (Status-Active)</li><br><hr>
+				    	<br>	
+				    	<div ng-if="val==0"><p class="sub-content">You can edit your profile now</p></div>
+				    	<li><label class="item item-input padd0">
+				    			<p class="padding-left">Firstname</p>&nbsp;&nbsp;
+				    			<input type="text" 				 
+				    					ng-disabled="disop" 
+				    					class="padding-right"
+				    					name="fname"
+				    					ng-minlength="3"
+				    					ng-model="profile.std_fname"
+				    					required>
+				    		</label> 
+				    		<div ng-messages="proForm.fname.$error" ng-if="proForm.fname.$touched">
+								<div ng-message="pattern"><p class="sub-content assertive">Your password does not match</p></div>
+				  			<div ng-messages-include="error-messages" class="sub-content"></div>
+					    </div>
+				    	</li><br>
+				    	<li><label class="item item-input padd0">
+				    			<p class="padding-left">Lastname</p>&nbsp;&nbsp;
+				    			<input type="text" 
+				    					ng-disabled="disop" 
+				    					class="padding-right"
+				    					ng-model="profile.std_lname">
+				    		</label> 
+				    		<div ng-messages="passForm.repass.$error" ng-if="passForm.repass.$touched">
+							<div ng-message="pattern"><p class="sub-content assertive">Your password does not match</p></div>
+				  			<div ng-messages-include="error-messages" class="sub-content"></div>
+					    </div>
+				    	</li><br>
+				    	<li><label class="item item-input padd0">
+				    			<p class="padding-left">Email</p>&nbsp;&nbsp;
+				    			<input type="text" 
+				    					ng-disabled="true" 
+				    					class="padding-right"
+				    					ng-model="profile.std_email">
+				    		</label> 
+				    		<div ng-if="val==0"><p class="sub-content">Email cannot be modified</p></div>
+				    	</li><br>
+				    	<li>
+				    		<label class="item item-input item-select">
+							    <div class="input-label">
+							      <p>Graduation Year</p>
+							    </div>
+							    <select ng-model="profile.std_gradYear" ng-disabled="disop">
+							      <option selected>{{profile.std_gradYear}}</option>	 
+							      <option>2016</option>	
+							      <option>2015</option>
+							      <option>2014</option>
+							      <option>2013</option>
+
+							    </select>
+						  	</label>
+				    	</li>
+				    </ul>
+				    <br><hr><br>
+				    <a class="button button-positive" 
+				    	ng-click="editProfile(profile)" 
+				    	ng-show="!isSave(val)">Edit Profile</a>
+				    <a class="button button-positive" 
+				    	ng-click="saveProfile(profile)" 
+				    	ng-show="isSave(val)"
+				    	ng-disabled="proForm.$invalid">Save Changes</a>
+				  </div>
+				  </form>
+				</div>
+			</div>
+		</div>
+
+		<!-- show if our function evaluates to false -->
+        <div ng-show="!isEven(myNumber)">
+          	<div class="row">
+				<div class="col col-25 col-offset-25">
+					<form name="passForm" novalidate>
+					<div class="">
+						<p class="sub-title">Change Password</p>
+						<b class="sub-content">Please Provide Your current password and set new password</b>
+						<br><hr><br>
+						<!-- <label class="item item-input">
+						    <input type="text" placeholder="Old Password" ng-model="pass.old">
+						</label><br> -->
+						<label class="item item-input">
+						    <input type="password" 
+						    		placeholder="New Password" 
+						    		ng-model="pass.new" 
+						    		ng-minlength="6"
+						    		ng-maxlength="12"
+						    		name="newpass"
+						    		required>
+						</label>
+						<div ng-messages="passForm.newpass.$error" ng-if="passForm.newpass.$touched">
+				  			<div ng-messages-include="error-messages" class="sub-content"></div>
+					    </div>
+						<br>
+						<label class="item item-input">
+						    <input type="password"
+						    		name="repass" 
+						    		placeholder="Retype New Password" 
+						    		ng-pattern="pass.new"
+						    		ng-model="pass.renew"
+						    		ng-minlength="6"
+						    		ng-maxlength="12"
+						    		required>
+						</label>
+						<div ng-messages="passForm.repass.$error" ng-if="passForm.repass.$touched">
+							<div ng-message="pattern"><p class="sub-content assertive">Your password does not match</p></div>
+				  			<div ng-messages-include="error-messages" class="sub-content"></div>
+					    </div>
+						<br><hr><br>
+			  			<button class="button button-positive" ng-click="changePassword(pass)" ng-disabled="passForm.$invalid">Change Password</button>
+			  		</div>
+			  		</form>
+				</div>
+			</div>
+        </div>
+		<!-- <ion-nav-view name="tabView">
+		</ion-nav-view> -->
+		<script id="contact-modal.html" type="text/ng-template">
+		  <div class="modal popmodal">
+		    <ion-header-bar>
+		      <h1 class="title">{{msgtitle}}</h1>
+		    </ion-header-bar>
+		    <ion-content style="height:200px !important;">
+		      <div class="list">
+		      		<p class="padding">{{msgbody}}</p>
+		      </div>
+		      
+		    </ion-content>
+		    <ion-footer-bar>
+		    		<button class="button button-positive" style="float:right" ng-click="closeModal()">Close</button>
+		    </ion-footer-bar>
+		  </div>
+		</script>
+
 	</ion-content>
 </ion-view>

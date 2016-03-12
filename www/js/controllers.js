@@ -49,7 +49,11 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
              $scope.messages = $localStorage.singleHistoryData;
         })
         $scope.goBack = function(){
-        $state.go('app.serviceHistory');
+          $state.go('app.serviceHistory');
+
+        $scope.editForm = function(){
+          $state.go('app.volunteerForm.edit');
+        }
     }
 })
 
@@ -221,6 +225,117 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
       var disabledDates = [];
       var weekDaysList = ["Sun", "Mon", "Tue", "Wed", "thu", "Fri", "Sat"];
       var monthList =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+})
+
+.controller('profileCtrl',function($scope,$state,$http,$sessionStorage,$ionicLoading,$localStorage,$ionicModal){
+
+    // set the default value of our number
+    $scope.myNumber = 0;
+    $scope.disop = true;
+    $scope.val = 1;
+    var profileData;
+
+     $ionicModal.fromTemplateUrl('contact-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-down'
+      }).then(function(modal) {
+        $scope.modal = modal
+      })  
+
+    $scope.tabPassword = function(){
+        $scope.myNumber = 1;
+    }
+    $scope.tabProfile = function(){
+        $scope.myNumber = 0;
+    }     
+    // function to evaluate if a number is even
+    $scope.isEven = function(value) {
+      if (value % 2 == 0)
+        return true;
+      else 
+        return false;
+    };
+    // function to evaluate if a number is even
+    $scope.isSave = function(value) {
+      if (value % 2 == 0)
+        return true;
+      else 
+        return false;
+    };
+
+    $scope.editProfile = function(profile){
+        $scope.val = 0;
+        $scope.disop = false;
+    }
+    $scope.closeModal = function(){
+        $scope.modal.hide();
+    }
+    $scope.saveProfile = function(profile){
+        
+
+        var profileData = profile;
+        //console.log(profileData);
+
+        var q = $http.post('http://eservicetracker.com/api/services/saveStudentInfo.php',profileData);
+        q.success(function(data, status, headers, config){
+               if(status == 200){
+                      $scope.modal.show();
+                      $scope.val = 1;
+                      $scope.disop = true;
+                      $scope.msgtitle="Change Profile Info";
+                      $scope.msgbody="You have successfully changed your Profile Information";
+
+              }
+               else{
+                    //$scope.message = "username or password is invalid";
+                    $ionicLoading.hide();
+               }         
+         });
+
+    }
+
+    $scope.changePassword=function(data){
+          var passdata = data;
+          passdata.std_id = $sessionStorage.user_id;
+          console.log(passdata);
+          var q = $http.post('http://eservicetracker.com/api/services/savePassword.php',passdata);
+          q.success(function(data, status, headers, config){
+               if(status == 200){
+                      console.log(data);
+                      $scope.msgtitle="Password Change";
+                      $scope.msgbody="You have successfully changed your password";
+                      $scope.modal.show();
+                      data = {};
+                      //$scope.val = 1;
+                      //$scope.disop = true;
+              }
+               else{
+                    //$scope.message = "username or password is invalid";
+                    $ionicLoading.hide();
+               }         
+         });
+    }
+
+    $scope.$on("$ionicView.beforeEnter",function(){
+          $ionicLoading.show();
+          $scope.profile = {};
+          var std_id = $sessionStorage.user_id;
+          console.log(std_id);
+            var q = $http.post('http://eservicetracker.com/api/services/getStudentInfo.php',std_id);
+            q.success(function(data, status, headers, config){
+                   if(status == 200){
+                        $localStorage.stdInfo = data;
+                        $scope.profile = data;
+                        console.log($scope.profile);
+                        $ionicLoading.hide();
+                   }
+                   else{
+                        //$scope.message = "username or password is invalid";
+                        //$ionicLoading.hide();
+                   }         
+        });
+    });
+
 })
 
 .controller('LoginCtrl', function($scope,$http,$state,$stateParams,$ionicLoading,$sessionStorage) {
