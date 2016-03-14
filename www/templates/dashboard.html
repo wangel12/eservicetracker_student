@@ -1,21 +1,26 @@
 <ion-view>
-        <ion-content class="padding-left padding-right">
-           <!--      <div class="row padding title_breadcrumb_box">
-                    <div class="col col-33"><i class="icon ion-android-arrow-back"></i>&nbsp;<b>Go Back</b></div>
+        <ion-content>
+
+           <ui-view name="breadcrumb">
+                <div class="row padding title_breadcrumb_box padding-bottom">
                     <div class="col col-33">
-                        <p class="title text-center">View Dashboard</p>
+                      <!-- <a class="icon-circle icon-circle-outline"><i class="icon ion-android-arrow-back"></i></a> -->
                     </div>
-                    <div class="col col-33 text-right"><b>Close</b>&nbsp;<i class="icon ion-close"></i></div>
-                </div> -->
+                    <div class="col col-33">
+                        <p class="title text-center">dashboard</p>
+                    </div>
+                    <div class="col col-33 text-right">
+                      <!-- <a class="icon-circle icon-circle-outline" ng-click="closeButton()"><i class="icon ion-close"></i></a> -->
+                    </div>
+                </div>
+            </ui-view>
+            <br><br>
                 <div class="list card">
                   <div class="item item-divider">
-                    <p>Recent Updates</p>
+                    <p>Recent Activity</p>
                   </div>
-                  <a class="item" href="#">Your volunteer hour has been rejected</a>
-                  <a class="item" href="#">Your volunteer hour has been accepted</a>
-                  <a class="item" href="#">Your volunteer hour has been rejected</a>
-                  <a class="item" href="#">Your volunteer hour is in pending</a>
-                  <a class="item" href="#">Joe Bell sent you a message</a>
+                  <div class="item" ng-repeat="x in messages.data">{{x.message}} for {{x.org_name}}<b class="sub-content">Date: {{x.act_date}} | Time: {{x.act_time}}</b> 
+                  </div>
                 </div>
 
                 <div class="list card">

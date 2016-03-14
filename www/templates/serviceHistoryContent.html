@@ -13,7 +13,7 @@
       </div>
   </div>
 <div class="row">
-	<div class="col col-50 col-offset-25">
+	<div class="col col-50 col-offset-25" ng-hide="hideBox">
 		<br><br>
 		<div class="row padd0">
 			<div class="col">
@@ -21,7 +21,7 @@
 				
 			</div>
 			<div class="col">
-				<label><b>Service Hour</b>: 25</label>
+				<label><b>Service Hour</b>: {{messages.ser_hr}}</label>
 			</div>
 			<div class="col">
 				<label><b>Status</b>: 
@@ -49,12 +49,32 @@
 		<br><hr><br>
 		<div class="row">
 			<div class="col"><label><b>Advisor:</b> {{ messages.adv_fname + " " +messages.adv_lname}}</label></div>
-			<div class="col"><label><b>Supervisor</b>: James Cameron</label></div>
+			<div class="col"><label><b>Supervisor</b>: {{ messages.supervisor_fname}}</label></div>
 		</div>
 		<br><hr><br>
+
 		<a class="button button-positive" ng-click="goBack()">Go Back</a>
+		<a class="button button-positive" ng-click="deleteForm()" ng-if="messages.sers_id == 3">Delete Form</a>
+
 		<!-- <a ng-if="messages.sers_id == 3" class="button button-positive" ng-click="editForm()">Edit This Form</a> -->
 	</div>
+	<div class="col col-50 col-offset-25 success-box padd0" ng-hide="successBox">
+			<div class="header-bar blue-bg">
+				<i class="icon ion-ios-checkmark-outline"></i>
+			</div>
+			<div class="header-content">
+				<br>
+				<p class="text-center sub-title"><b>Great!</b></p>
+				<br>
+				<p class="text-center">You have successfully deleted service record.</p>
+				<br>
+				<div class="btn-container">
+					<button class="button button-assertive" ng-click="goBack()"><i class="icon ion-arrow-left-c"></i>&nbsp;&nbsp;Go Back</button>
+				</div>
+			</div>
+	</div>
 </div>
+
+</script>
 </ion-content>
 </ion-view>
