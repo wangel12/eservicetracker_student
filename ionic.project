@@ -1,4 +1,12 @@
 {
-  "name": "eservicetracker",
-  "app_id": ""
+  "name": "example",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

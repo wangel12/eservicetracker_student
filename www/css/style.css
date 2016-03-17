@@ -1,1 +1,94 @@
 /* Empty. Add your own CSS if you like */
+.body{
+	font-family: 'Roboto', sans-serif;
+}
+.profile_ion_content_box{
+	background-color: #444444 !important;
+}
+.profile-name-box{
+	background-color: #e86850;
+	font-family: 'sans-serif' !important;
+	font-weight: 300;
+}
+
+.profile-name-box h1 {
+	font-size: 30px;
+	font-weight: 300;
+	color:#ffffff;
+}
+
+.profile-name-box h1 i {
+	padding-left: 20px;
+
+}
+.profile-info-box {
+	background-color: #e86850;
+}
+
+.profile-info-box b{
+	font-size: 18px;
+	color: #ffffff;
+}
+.profile-info-box i {
+	color: #fff;
+	padding-right: 5px;
+}
+hr {
+	background-color: #d83a1c;
+	padding: 0;
+	margin: 0;
+	color: #9c2a14;
+	height: 1px;
+	border: none;
+}
+.side-menu-box{
+	background-color: rgb(40,45,54) !important;
+}
+.side-menu-box .list {
+	background-color: rgb(40,45,54) !important;
+}
+
+/*Set the background to transparent for ion-item*/
+.side-menu-box .item {
+  background-color: transparent;
+  border:none;   /*Removes all borders*/
+  border-top: 0px solid;   /*Top Border for each menu item*/
+  border-bottom:0px solid;   /*Bottom border for each menu item*/
+  border-color: #555555;   /*Sets colors for top and bottom border*/
+  color: white;    /*Text color for each item*/
+}
+
+/*Changes the border for the last item*/
+.side-menu-box .item:last-child {
+  border-bottom: 0px solid #666;
+}
+ 
+.side-menu-box .item-complex .item-content, .dark .item-radio .item-content {
+  background-color: transparent;
+}
+ 
+/*Just makes the type white*/
+.side-menu-box h2,
+.side-menu-box h3,
+.side-menu-box p,
+.side-menu-box a {
+  color: rgb(107,118,131);  /*Text color for each item, overrides the color property above*/
+  font-weight: 400;
+}
+.side-menu-box:hover {
+	color: #fff !important;
+}
+.side-menu-box i {
+	padding-right: 15px;
+}
+
+
+
+.banner {
+	background-color: #e86850;
+}
+.banner h1,h2,h3,h4,h5{ 
+	color: white; padding:20px; font-weight: 300;
+	font-size: 16px;
+}
+
