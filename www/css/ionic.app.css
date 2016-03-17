@@ -136,3 +136,25 @@ $dark:                            #444 !default;
     padding-left: 5px; }
   .history_box .org-info2 i {
     color: red; }
+
+.modal {
+  /*HEADER WRAPPER CLASS*/ }
+  .modal .head-bar {
+    background-color: #ef473a;
+    overflow: none !important;
+    position: relative;
+    padding: 30px 0;
+    /*Modals Title*/ }
+    .modal .head-bar .title {
+      font-size: 28px;
+      color: white;
+      padding-top: 40px;
+      padding-bottom: 20px;
+      font-weight: 200;
+      display: block; }
+    .modal .head-bar i {
+      color: white;
+      font-size: 40px; }
+  .modal .msgbody p {
+    padding: 0px !important;
+    margin: 0px !important; }

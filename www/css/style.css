@@ -178,7 +178,7 @@ hr {
    /*margin: 0px auto;
   padding: 0px;
   display:block;*/
-  font-size:60px;
+  /*font-size:60px;*/
 }
 
 
@@ -186,7 +186,7 @@ hr {
 	
 .popmodal {
       width: 40%;
-      height: 5%;
+      height: 50%;
       left: 30%;
       right: 30%;
 }
@@ -221,7 +221,9 @@ hr {
 .btn-container {
   text-align: center;
 }
-
+.btn-container i{
+    font-size: 10px !important;
+}
 
 .blue-bg{
   background-color: #33cd5f;
@@ -252,3 +254,5 @@ hr {
     border: 2px solid #EAEAEA;
     min-height: 300px;      
 } 
+
+
