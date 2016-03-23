@@ -1,0 +1,39 @@
+<ion-view view-title="Sign-In" name="login-view">
+  <ion-content class="padding">
+    <br><br>
+    <div class="col col-offset-25 col-50">
+      <div class="list list-inset">
+            <h1 class="text-center">Volunteer Login</h1> 
+            <br><br>
+            <form name="loginForm" novalidate>
+            <!-- show an error if username is too short -->
+            <p>{{message}}</p>
+                  <label class="item item-input">
+                      <input 
+                            type="text" 
+                            placeholder="Email" 
+                            ng-model="loginForm.user"
+                            ng-minlength="8" 
+                            required>
+                  </label>
+                  <label class="item item-input">
+                      <input type="password" 
+                                placeholder="Password" 
+                                ng-model="loginForm.pass" 
+                                ng-minlength="6"
+                                required >
+                      
+                  </label>
+                
+                <button class="button button-block button-positive" 
+                                ng-click="login(loginForm)"
+                                ng-disabled="loginForm.$invalid">
+                                Login
+                </button>
+            </form>
+            New to eservicetracker? <a href="#/register">Sign Up</a> here
+        </div></div>    
+        <!-- <p>The input's valid state is:</p>
+        <h1>{{loginForm.$valid}}</h1> -->
+  </ion-content>
+</ion-view>

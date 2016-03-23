@@ -1,0 +1,159 @@
+<script type="text/ng-template" id="error-messages">
+        <p ng-message="required">This field is required.</p>
+        <p ng-message="minlength">This field is too small.</p>
+</script>
+<ion-view>
+	<ion-content>
+		<div class="row padding title_breadcrumb_box">
+            <div class="col col-33">
+            <!-- <i class="icon ion-android-arrow-back"></i>&nbsp;<b>Go Back</b> -->
+            </div>
+            <div class="col col-33">
+                <p class="title text-center">VOLUNTEER FORM</p>
+            </div>
+            <div class="col col-33 text-right">
+            <!-- <b>Close</b>&nbsp;<i class="icon ion-close"></i> -->
+            </div>
+        </div>
+        <ui-view name="successView">
+        	<br>
+			<div class="col col-100 col-offset-20">
+			<div>{{message}}</div>
+			<form name="serviceForm" novalidate>	
+				<label class="item item-input col col-50">
+					<input 
+						type="text" 
+						placeholder="Organization Name" 
+						ng-model="service.orgname"
+						name="orgname"
+						ng-minlength="3"
+						required>
+				</label>
+				<div ng-messages="serviceForm.orgname.$error" ng-if="serviceForm.orgname.$touched">
+				  	<div ng-messages-include="error-messages"></div>
+				</div>
+				<br>
+			  	<label class="item item-input col col-50">
+			    	<textarea 
+			    		type="text" 
+			    		placeholder="What did you do to help" 
+			    		name="orgdesc"
+			    		ng-minlength="6"
+			    		ng-model="service.orgdesc"
+			    		required>
+			    	</textarea>
+			  	</label>
+			  	<div ng-messages="serviceForm.orgdesc.$error" ng-if="serviceForm.orgdesc.$touched">
+			  		<div ng-message="minlength">Please provide a clear description of what you did.</div>
+				  	<div ng-messages-include="error-messages"></div>
+				</div><br>
+			
+				<label class="item item-input col col-50">
+					<input 
+						type="text" 
+						placeholder="Location" 
+						name="loc"
+						ng-minlength="3"
+						ng-model="service.location"
+						required>
+				</label>
+				<div ng-messages="serviceForm.loc.$error" ng-if="serviceForm.loc.$touched">
+			  		<div ng-message="minlength">The location should be clear enough.</div>
+				  	<div ng-messages-include="error-messages"></div>
+				</div><br>	
+				<label>
+				<ionic-datepicker input-obj="datepickerObject">
+					<label class="item item-input col col-25">
+						<input 
+								type="date" 
+								placeholder="Date of Service" 
+								value="{{ date | date:'dd-MM-yyyy'}}"
+								required>
+						</label>
+				</ionic-datepicker>
+				</label><br>
+
+				<label class="item item-input col col-25">
+						<input 
+						type="number" 
+						placeholder="No. of Hours" 
+						ng-model="service.hours"
+						name="hour"
+						ng-minlength="1"
+						ng-maxlengh="3"
+						required>
+				</label>
+				<div ng-messages="serviceForm.hour.$error" ng-if="serviceForm.hour.$touched">
+			  		<div ng-message="minlength">Your work hour should be atleast 1 digit.</div>
+				  	<div ng-messages-include="error-messages"></div>
+				</div><br>	
+
+				<div class="row padd0">
+					  	<label class="item item-input item-select col col-25">
+						    <div class="input-label">
+						      <p>Advisor</p>
+						    </div>
+						    <select 
+						    	ng-model="service.advisor"
+						    	name="advisor"
+						    	required>
+						      <option ng-repeat="x in advData" ng-value="x.adv_id">{{x.adv_fname + " " + x.adv_lname }}</option>
+						    </select>
+					  	</label>&nbsp;&nbsp;
+					  	<div ng-messages="serviceForm.advisor.$error" ng-if="serviceForm.advisor.$touched">
+					  		<!-- <div ng-message="minlength">The location should be clear enough.</div> -->
+						  	<div ng-messages-include="error-messages"></div>
+						</div><br>		
+					  	<label class="item item-input item-select col col-25">
+						    <div class="input-label">
+						      <p>Service Type</p>
+						    </div>
+						    <select ng-model="service.serviceType" name="serviceType" required>
+						      <option ng-repeat="x in serviceTypeData" ng-value="x.serty_id">{{x.serty_name}}</option>
+						    </select>
+					  	</label>
+					  	<div ng-messages="serviceForm.serviceType.$error" ng-if="serviceForm.serviceType.$touched">
+					  		<!-- <div ng-message="minlength">The location should be clear enough.</div> -->
+						  	<div ng-messages-include="error-messages"></div>
+						</div><br>	
+				</div><br>
+
+			  	<label class="item item-input col col-50">
+			    	<input 
+			    	type="text" 
+			    	placeholder="Supervisor Name" 
+			    	ng-model="service.supervisor"
+			    	name="supervisorname"
+			    	ng-minlength="6"
+			    	required>
+			  	</label>
+			  	<div ng-messages="serviceForm.supervisorname.$error" ng-if="serviceForm.supervisorname.$touched">
+					 <div ng-message="minlength">Supervisor name too short.</div>
+				  	 <div ng-messages-include="error-messages"></div>
+				</div><br>	
+				<input type="hidden" name="" ng-model="service.std_id" value="0">
+			  	<label class="item item-input col col-50">
+				    <input type="text" placeholder="Supervisor Telephone (Optional)" ng-model="service.telephone" name="tel">
+			  	</label>
+			  	<div ng-messages="serviceForm.tel.$error" ng-if="serviceForm.tel.$touched">
+					 	<!-- something for checking telephone number -->
+				</div><br>	
+
+			  	<label class="item item-input col col-50">
+			    	<input type="email" placeholder="Supervisor Email" ng-model="service.sEmail" name="email" required>
+			  	</label>
+			  	<div ng-messages="serviceForm.email.$error" ng-if="serviceForm.email.$touched">
+					 <div ng-message="minlength">Email is too short.</div>
+				  	<div ng-messages-include="error-messages"></div>
+				</div><br>	
+
+			  	<button class="button button-positive" ng-click="submit(service)" ng-disabled="serviceForm.$invalid">
+			   		Submit Form
+			   	</button>
+			</form>
+			<!-- <pre>{{service | json}}</pre> -->
+			<!-- <pre>master = {{master | json}}</pre> -->
+			</div>
+		</ui-view>
+	</ion-content>
+</ion-view>

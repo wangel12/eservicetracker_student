@@ -1,0 +1,104 @@
+<ion-view>
+
+<ion-content>
+<!-- upper section -->
+<ui-view name="breadcrumb">
+	  <div class="row padding title_breadcrumb_box padding-bottom">
+	      <div class="col col-33">
+	      	<!-- <a class="icon-circle icon-circle-outline"><i class="icon ion-android-arrow-back"></i></a> -->
+	      </div>
+	      <div class="col col-33">
+	          <p class="title text-center">Service History</p>
+	      </div>
+	      <div class="col col-33 text-right">
+	      	<!-- <a class="icon-circle icon-circle-outline" ng-click="closeButton()"><i class="icon ion-close"></i></a> -->
+	      </div>
+	  </div>
+</ui-view>
+<div class="list">
+
+<div class="padding ">              
+
+  <!-- <hr> -->		
+ <!-- <ui-view name="serviceView"> -->
+  	<br>
+	<div class="row padd0">
+ 	<div class="col">
+  		<label class="item item-input item-select">
+		    <div class="input-label">
+		      School Year
+		    </div>
+		    <select>
+		      <option>A</option>
+		      <option selected>b</option>
+		      <option>c</option>
+		    </select>
+		</label>
+	</div>
+	&nbsp;&nbsp;&nbsp;
+	<div class="col">
+  		<label class="item item-input item-select">
+		    <div class="input-label">
+		      View Status
+		    </div>
+		    <select ng-model="status" ng-change="filterByStatus(status)">
+		      <option value="">None</option>
+		      <option value="1">Accepted</option>
+		      <option value="2">Rejected</option>
+		      <option value="3">Pending</option>
+		    </select>
+		</label>
+	</div>
+	&nbsp;&nbsp;&nbsp;
+	<div class="col">
+		 <label class="item item-input">
+		    <i class="icon ion-search placeholder-icon"></i>
+		    <input type="text" placeholder="Search" ng-model="searchBox">
+		  </label>
+	</div>
+<!-- 	<div class="col col-25">
+		<h4>Total Hours: <b>12</b></h4>
+	</div> -->
+  </div>
+  <br>
+  <div ng-if="messages.data">
+	  	<div class="history_box"
+			 ng-repeat="x in messages.data | filter:searchBox | filter: {sers_id:status}"
+			 ng-click="getSingleHistory(x)">
+			    <div class="padding-top row org-info padd0">
+			    	<p class="org-desc">
+			    	<i class="icon ion-ios-paper-outline"></i>
+			    	<span>{{x.org_name}}</a></span></p>
+			   	</div>
+			    <div class="row padd0 org-bottom">
+			    	<div class="col">
+			    		<span><i class="icon ion-ios-location"></i>&nbsp;<b>{{x.org_address}}</b></span>
+			    	</div>
+			    	<div class="col">
+			    		<span>
+			    		<!-- <i class="icon ion-calendar"></i> -->
+			    		<i class="icon ion-ios-calendar"></i>&nbsp;<b>27/04/2016</b>
+			    		</span>
+			    	</div>	
+			    	<div class="col">
+			    		<span>
+			    		<i class="icon ion-arrow-graph-up-right"></i>&nbsp;
+			    		<b ng-switch on="x.sers_id">
+						    <!-- <i class="icon ion-ios-information-outline"></i>&nbsp; -->
+						    <b ng-switch-when="1" class="positive">Accepted</b>
+						    <b ng-switch-when="2" class="assertive">Rejected</b>
+						    <b ng-switch-when="3" class="balanced">Pending</b>
+						</b> 
+						</span>
+			    	</div>
+			    	<div class="col"></div>
+			    </div>
+		</div>
+	</div>
+
+<!-- <ui-view> -->
+</div>
+</div>
+</ion-content>
+</ion-view>
+
