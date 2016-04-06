@@ -83,7 +83,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     }
 })
 
-.controller('singleHistoryCtrl',function($scope,$state,$localStorage,$sessionStorage,$stateParams,$ionicModal,$http,$ionicLoading){
+.controller('singleHistoryCtrl',function($scope,$state,$localStorage,$sessionStorage,$stateParams,$ionicModal,$http){
 
         $scope.$on('$ionicView.beforeEnter',function(){
              //console.log($localStorage.singleHistoryData);
@@ -362,6 +362,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     };
     // function to evaluate if a number is even
     $scope.isSave = function(value) {
+      console.log(value);
       if (value % 2 == 0)
         return true;
       else 

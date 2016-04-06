@@ -255,4 +255,39 @@ hr {
     min-height: 300px;      
 } 
 
+.right-buttons{
+    background-color: #ffffff;
+}
+.right-buttons .ser-htry{
+     margin-right: 20px;
+    padding: 0px 8px;
+    padding-top: 6px;
+    padding-left: 0px;
+}
+.right-buttons .ser-htry i{
+  font-size: 22px;
+}
+.right-buttons .add-form{
+
+    margin-right: 20px;
+    padding: 0px 8px;
+    padding-top: 3px;
+}
+.right-buttons .add-form i{
+    font-size:24px;
+
+}
+
+.right-buttons .log-out i{
+    font-size: 24px;
+    color: #bababa;
+}
+
+.popover {
+    height: 40%;
+}
+
+
+
+
 

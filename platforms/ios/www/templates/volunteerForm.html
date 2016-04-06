@@ -97,9 +97,7 @@
 						    	ng-model="service.advisor"
 						    	name="advisor"
 						    	required>
-						      <option>Joe Bell</option>
-						      <option selected>John Doe</option>
-						      <option>Nicholas Cage</option>
+						      <option ng-repeat="x in advData" ng-value="x.adv_id">{{x.adv_fname + " " + x.adv_lname }}</option>
 						    </select>
 					  	</label>&nbsp;&nbsp;
 					  	<div ng-messages="serviceForm.advisor.$error" ng-if="serviceForm.advisor.$touched">
@@ -111,10 +109,7 @@
 						      <p>Service Type</p>
 						    </div>
 						    <select ng-model="service.serviceType" name="serviceType" required>
-						      <option selected>Aged/Sick/Dying</option>
-						      <option>Poverty</option>
-						      <option>Young Persons</option>
-						      <option>Church/School</option>
+						      <option ng-repeat="x in serviceTypeData" ng-value="x.serty_id">{{x.serty_name}}</option>
 						    </select>
 					  	</label>
 					  	<div ng-messages="serviceForm.serviceType.$error" ng-if="serviceForm.serviceType.$touched">

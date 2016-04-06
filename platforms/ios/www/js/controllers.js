@@ -1,6 +1,6 @@
 var app = angular.module('starter.controllers', []);
 
-app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
+app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$ionicModal) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -15,12 +15,53 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
     $scope.logout = function(){
         //$sessionStorage.$reset();
         //$sessionStorage.logout = true;
+         $scope.popover.hide();
+         $scope.popover.remove();
         $state.go("login");
     }
     $scope.$on('$ionicView.beforeEnter', function(){
         // Any thing you can think of
         $scope.user_fname = $sessionStorage.user_fname;    
     });
+
+     // .fromTemplateUrl() method
+    $ionicPopover.fromTemplateUrl('my-popover.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+
+    $scope.openPopover = function($event) {
+      $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+      $scope.popover.hide();
+    };
+
+    $ionicModal.fromTemplateUrl('my-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+
+    $scope.openVltrForm = function(){
+        $state.go('app.volunteerForm');
+        $scope.modal.hide();
+    }
+    $scope.openSerHtry = function(){
+        $state.go('app.serviceHistory');
+    }
 
 })
 
@@ -42,7 +83,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
     }
 })
 
-.controller('singleHistoryCtrl',function($scope,$state,$localStorage,$sessionStorage,$stateParams,$ionicModal,$http,$ionicLoading){
+.controller('singleHistoryCtrl',function($scope,$state,$localStorage,$sessionStorage,$stateParams,$ionicModal,$http){
 
         $scope.$on('$ionicView.beforeEnter',function(){
              //console.log($localStorage.singleHistoryData);
@@ -99,23 +140,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
         $scope.goBack = function(){
             $state.go('app.serviceHistory');
         }
-        // $scope.goBack = function(){
-        //   $state.go('app.serviceHistory');
 
-        // $scope.editForm = function(){
-        //   $state.go('app.volunteerForm.edit');
-        // }
-        // $scope.closeModal = function(){
-        //     alert("hello");
-        //     $scope.modal.hide();
-        // }
-        // $scope.deleteForm = function(){
-        //     console.log("hello");
-        // }
-        // //
-        // $scope.test = function(){
-        //   alert("hello");
-        // }
     
 })
 
@@ -147,6 +172,18 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
 
 .controller('volunteerFormCtrl',function($scope,$http,$ionicLoading,$state,$sessionStorage,$localStorage){
 
+        $scope.$on('$ionicView.enter',function(){
+              //get Advisor Names and service types
+              var res = $http.post('http://eservicetracker.com/api/services/getFormData.php');
+              res.success(function(data, status, headers, config) {
+                  if(status == 200){
+                    $scope.advData = data.advisors;
+                    $scope.serviceTypeData = data.service_types;
+                    //console.log(data.service_types);
+                  }
+              });
+        })
+
         $scope.submit = function(service){
 
             var tempService=service;
@@ -160,6 +197,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
             var res = $http.post('http://eservicetracker.com/api/services/insertVolunteerForm.php',tempService);
             res.success(function(data, status, headers, config) {
                 if(status == 200){
+                  //console.log(data);
                   $state.go('app.volunteerForm.success');
                 }
             });
@@ -324,6 +362,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage) {
     };
     // function to evaluate if a number is even
     $scope.isSave = function(value) {
+      console.log(value);
       if (value % 2 == 0)
         return true;
       else 
