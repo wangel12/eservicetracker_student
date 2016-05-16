@@ -117,7 +117,7 @@ $global_word_color:rgb(108,119,132);
 .history_box {
 	margin-bottom: 10px;
 	border-bottom: 1px solid #eaeaea;
-	padding-top: 10px;
+	padding-top: 0px;
 	background: rgb(240,240,240);
 	//width: 100%;
 	.item{
@@ -135,7 +135,7 @@ $global_word_color:rgb(108,119,132);
 		.org-desc{
 			display: block;
 			//background-color: #EAEAEA;
-			padding-top: 10px;
+			padding-top: 0px;
 			padding-left: 10px;
 			width: 100%;
 			i {
@@ -145,7 +145,7 @@ $global_word_color:rgb(108,119,132);
 				padding-left: 10px;
 			}
 			span {
-				font-size: 22px;
+				font-size: 18px;
 				font-weight: 400;
 				padding-left: 5px;
 				letter-spacing: 0px;
@@ -180,7 +180,7 @@ $global_word_color:rgb(108,119,132);
 		position: relative;
 		padding: 30px 0;
 		/*Modals Title*/
-		.title {font-size: 28px; color: white; padding-top:40px; padding-bottom: 20px; font-weight: 200; display: block;}
+		.title {font-size: 18px; color: white; padding-top:40px; padding-bottom: 20px; font-weight: 200; display: block;}
 		i{ color: white; font-size: 40px;}
 	}
 
@@ -189,5 +189,9 @@ $global_word_color:rgb(108,119,132);
 				padding: 0px !important;margin: 0px !important;
 		}
 	}
+}
+
+.btn-edit{
+     color:rgb(230,78,66); 
 }
 

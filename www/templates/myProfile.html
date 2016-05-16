@@ -4,27 +4,23 @@
         <p ng-message="required" class="sub-content assertive">This field is required.</p>
 </script>
 
-<ion-view view-title="My Profile">
+<ion-view>
 	<ion-content>
 	 <div class="row padding title_breadcrumb_box padding-bottom">
-      <div class="col col-33">
-      	<!-- <a class="icon-circle icon-circle-outline"><i class="icon ion-android-arrow-back"></i></a> -->
-      </div>
-      <div class="col col-33">
+     
+      <div class="col">
           <p class="title text-center">profile view</p>
       </div>
-      <div class="col col-33 text-right">
-      	<!-- <a class="icon-circle icon-circle-outline" ng-click="closeButton()"><i class="icon ion-close"></i></a> -->
-      </div>
+      
   	</div>
-		<div class="row">
-			<div class="col col-50 col-offset-25">
-					<div class="row">
-							<div class="col">
-								<b class="text-center" style="display:block;" ng-click="tabProfile()">My Profile</b>
+		<div class="row padd0">
+			<div class="col padd0">
+					<div class="row padd0">
+							<div class="col padd0">
+								<b class="text-center {{pactive}} tab-box" style="display:block;" ng-click="tabProfile()">My Profile</b>
 							</div>
-							<div class="col">
-								<b style="display:block;" class="text-center" ng-click="tabPassword()">Change Password</b>	
+							<div class="col padd0">
+								<b style="display:block;" class="text-center {{cactive}} tab-box" ng-click="tabPassword()">Change Password</b>	
 							</div>
 					</div>
 					<hr>
@@ -32,11 +28,11 @@
 		</div>
 		<div ng-show="isEven(myNumber)">
 			<div class="row">		
-				<div class="col col-25 col-offset-25">
+				<div class="col">
 				<form name="proForm" novalidate>
 				  <div class="item-text-wrap">
 				    <ul>
-				    	<li><b class="sub-title">Profile Details</b>  (Status-Active)</li><br><hr>
+				    	<li><b class="sub-title">Profile Details</b></li><br><hr>
 				    	<br>	
 				    	<div ng-if="val==0"><p class="sub-content">You can edit your profile now</p></div>
 				    	<li><label class="item item-input padd0">
@@ -92,10 +88,13 @@
 				    	</li>
 				    </ul>
 				    <br><hr><br>
-				    <a class="button button-positive" 
+				    <a class="button btn-del" 
 				    	ng-click="editProfile(profile)" 
 				    	ng-show="!isSave(val)">Edit Profile</a>
-				    <a class="button button-positive" 
+				    <a class="button btn-del" 
+				    	ng-click="cancelProfile()" 
+				    	ng-show="isSave(val)">Cancel</a>
+				    <a class="button btn-green" 
 				    	ng-click="saveProfile(profile)" 
 				    	ng-show="isSave(val)"
 				    	ng-disabled="proForm.$invalid">Save Changes</a>
@@ -108,7 +107,7 @@
 		<!-- show if our function evaluates to false -->
         <div ng-show="!isEven(myNumber)">
           	<div class="row">
-				<div class="col col-25 col-offset-25">
+				<div class="col">
 					<form name="passForm" novalidate>
 					<div class="">
 						<p class="sub-title">Change Password</p>
@@ -145,7 +144,7 @@
 				  			<div ng-messages-include="error-messages" class="sub-content"></div>
 					    </div>
 						<br><hr><br>
-			  			<button class="button button-positive" ng-click="changePassword(pass)" ng-disabled="passForm.$invalid">Change Password</button>
+			  			<button class="button btn-green" ng-click="changePassword(pass)" ng-disabled="passForm.$invalid">Change Password</button>
 			  		</div>
 			  		</form>
 				</div>
@@ -154,20 +153,21 @@
 		<!-- <ion-nav-view name="tabView">
 		</ion-nav-view> -->
 		<script id="contact-modal.html" type="text/ng-template">
-		  <div class="modal popmodal">
-		    <ion-header-bar>
-		      <h1 class="title">{{msgtitle}}</h1>
-		    </ion-header-bar>
-		    <ion-content style="height:200px !important;">
-		      <div class="list">
-		      		<p class="padding">{{msgbody}}</p>
-		      </div>
-		      
-		    </ion-content>
-		    <ion-footer-bar>
-		    		<button class="button button-positive" style="float:right" ng-click="closeModal()">Close</button>
-		    </ion-footer-bar>
-		  </div>
+		  	<div class="col success-box padd0" ng-hide="successBox">
+			<div class="header-bar blue-bg text-center">
+				<i class="icon ion-ios-checkmark-outline"></i>
+			</div>
+			<div class="header-content">
+				<br>
+				<p class="text-center sub-title"><b>Great!</b></p>
+				<br>
+				<p class="text-center">{{msgbody}}</p>
+				<br>
+				<div class="btn-container">
+					<button class="button btn-green" ng-click="goBack()"><i class="icon ion-arrow-left-c"></i>&nbsp;&nbsp;Go Back</button>
+				</div>
+			</div>
+			</div>
 		</script>
 
 	</ion-content>

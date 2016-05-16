@@ -2,6 +2,7 @@
 .body{
 	font-family: 'Roboto', sans-serif;
 }
+
 .profile_ion_content_box{
 	background-color: #444444 !important;
 }
@@ -45,7 +46,7 @@ hr {
 	background-color: rgb(40,45,54) !important;
 }
 .side-menu-box .list {
-	background-color: rgb(40,45,54) !important;
+	background-color: none!important;
 }
 
 /*Set the background to transparent for ion-item*/
@@ -185,10 +186,7 @@ hr {
 
 	
 .popmodal {
-      width: 40%;
-      height: 50%;
-      left: 30%;
-      right: 30%;
+     
 }
 
 
@@ -241,18 +239,17 @@ hr {
 .header-bar i {
     color: white;
     text-align: center;
-    margin: 0px auto !important;
+    margin-top:22px;
     font-size: 100px;
     display: inline-block;
-    position: absolute;
-    top: 19%;
-    left: 45%;
-    margin-left: 200px;
+
 
 }
 .header-content {
     border: 2px solid #EAEAEA;
-    min-height: 300px;      
+    min-height: 600px;    
+    background: white;
+
 } 
 
 .right-buttons{
@@ -287,7 +284,22 @@ hr {
     height: 40%;
 }
 
-
-
+.white{
+    -webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+    color: #ffffff;
+    background-color:rgb(75,204,104);
+    padding: 20px 0;
+}
+.black{
+    -webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+    padding: 20px 0;
+    background-color: rgb(66,76,77);
+    color: #777777;
+}
+.tab-box {
+    padding: 15px 0;
+}
 
 

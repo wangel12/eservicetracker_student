@@ -1,6 +1,6 @@
 var app = angular.module('starter.controllers', []);
 
-app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$ionicModal) {
+app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$ionicModal,$rootScope) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -12,11 +12,12 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     // $rootScope.logout = function(){
     //     alert("hello");
     // }
-    $scope.logout = function(){
+    $rootScope.logout = function(){
         //$sessionStorage.$reset();
         //$sessionStorage.logout = true;
-         $scope.popover.hide();
-         $scope.popover.remove();
+         //$scope.popover.hide();
+         //alert("hello");
+         //$scope.popover.remove();
         $state.go("login");
     }
     $scope.$on('$ionicView.beforeEnter', function(){
@@ -52,7 +53,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     };
     //Cleanup the modal when we're done with it!
     $scope.$on('$destroy', function() {
-      $scope.modal.remove();
+      //$scope.modal.remove();
     });
 
     $scope.openVltrForm = function(){
@@ -63,27 +64,89 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
         $state.go('app.serviceHistory');
     }
 
+    $scope.openNotifications = function(){
+        $state.go('app.notification');
+    }
+
 })
 
-// .controller('sideMenuCtrl',function($scope,$sessionStorage,$state,userinfoService){
-
-// })
-
-.controller('registerCtrl',function($scope,$http,$ionicLoading,$state){
-    $scope.submit = function(register){
-        var res = $http.post('http://eservicetracker.com/api/services/insertRegistrationForm.php',register);
-        res.success(function(data, status, headers, config) {
-            console.log(data);
-            if(status == 200){
-                    $state.go('register.confirm');
-            }
-            //$scope.message = "Successfully added your work hours";
-            $ionicLoading.hide();
-        });
+.controller('notificationCtrl', function($scope,$http,$state,$stateParams,$ionicLoading,$sessionStorage,$localStorage) {
+    $scope.$on('$ionicView.enter',function(){
+            $ionicLoading.show();
+            var res = $http.post('http://eservicetracker.com/api/services/getNotificationMessages.php');
+                res.success(function(data, status, headers, config) {
+                    if(status == 200){
+                        $scope.messages = data;
+                        //console.log(data);
+                        $ionicLoading.hide();
+                    }
+            }); 
+    })
+    $scope.goToSingleNotifiction = function(x){
+        $localStorage.notificationData = x;
+        $state.go("app.singleNotification");
     }
 })
 
-.controller('singleHistoryCtrl',function($scope,$state,$localStorage,$sessionStorage,$stateParams,$ionicModal,$http){
+.controller('singleNotificationCtrl', function($scope,$http,$state,$stateParams,$ionicLoading,$sessionStorage,$localStorage) {
+   $scope.messages = $localStorage.notificationData;
+})
+
+.controller('registerCtrl',function($scope,$http,$ionicLoading,$state,md5){
+
+    $scope.$on('$ionicView.enter',function(){
+          var req = $http.get('http://eservicetracker.com/api/services/getPatternSettings.php');
+          req.success(function(data,status,header,config){
+              console.log(data);
+              //$scope.pattern='[A-Za-z0-9\_\.]+\@+prep-villa+\.+com';
+              $scope.pattern='[A-Za-z0-9\_\.]+\@+'+data.email+'+\.+com';
+              //$activityIndicator.stopAnimating();
+          })
+    })
+    var push = new Ionic.Push({
+      "debug": true
+    });
+    var mytoken;
+    push.register(function(token) {
+
+      mytoken = token.token
+      console.log("Device token----:",mytoken);
+      // var res = $http.post('http://eservicetracker.com/api/services/saveToken.php',token.token);
+      //   res.success(function(data, status, headers, config) {
+      //       //console.log(data);
+      //       if(status == 200){
+      //             console.log(data);t
+      //       }
+      // });
+      push.saveToken(token);  // persist the token in the Ionic Platform
+    });
+
+    //REGISTRATION
+    $scope.submit = function(register){
+            $ionicLoading.show();
+            var email = md5.createHash(register.email);
+            var password = md5.createHash(register.password);
+            register.enEmail = email;
+            register.enPass = password;
+            register.token = mytoken;
+            var res = $http.post('http://eservicetracker.com/api/services/insertRegistrationForm.php',register);
+            res.success(function(data, status, headers, config) {
+                console.log(data);
+                if(status == 200){
+                      $ionicLoading.hide();
+                       if(data.status == "taken"){
+                          alert("The email has already been registered.");
+                        }
+                        else{
+                            alert("Registration Successful. Please login with your email and password.");
+                            $state.go('login');
+                        } 
+                }
+            });
+    }
+})
+
+.controller('singleHistoryCtrl',function($scope,$state,$localStorage,$sessionStorage,$stateParams,$ionicModal,$http,$ionicLoading){
 
         $scope.$on('$ionicView.beforeEnter',function(){
              //console.log($localStorage.singleHistoryData);
@@ -106,7 +169,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
         };
         //Cleanup the modal when we're done with it!
         $scope.$on('$destroy', function() {
-          $scope.modal.remove();
+          //$scope.modal.remove();
         });
         // Execute action on hide modal
         $scope.$on('modal.hidden', function() {
@@ -118,16 +181,16 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
         });
         $scope.deleteForm = function(){
             $scope.msgtitle = "Delete Service";
-             $scope.msgbody = "Are you sure you want to delete the service for "+ $localStorage.singleHistoryData.org_name+ " ?";
+            $scope.msgbody = "Are you sure you want to delete the service for "+ $localStorage.singleHistoryData.org_name+ " ?";
             $scope.modal.show();
         }  
         $scope.deleteData = function(){
               //console.log($localStorage.singleHistoryData.ser_id);
-              var link = 'http://eservicetracker.com/api/services/deleteVolunteerForm.php?ser_id='+$localStorage.singleHistoryData.ser_id+'&std_id='+$sessionStorage.user_id;
               $ionicLoading.show();
+              var link = 'http://eservicetracker.com/api/services/deleteVolunteerForm.php?ser_id='+$localStorage.singleHistoryData.ser_id+'&std_id='+$sessionStorage.user_id;
               var res = $http.post(link);
               res.success(function(data, status, headers, config) {
-                  console.log(data);
+                  //console.log(data);
                   if(data.delete == true){
                         $scope.hideBox=true;
                         $scope.successBox=false;
@@ -140,7 +203,10 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
         $scope.goBack = function(){
             $state.go('app.serviceHistory');
         }
-
+        $scope.editHistory = function(msg){
+            //s$localStorage.messages = msg;
+            $state.go("app.editHistory");
+        }
     
 })
 
@@ -151,11 +217,12 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
                //var userdata;
                //userdata.user_id = $sessionStorage.user_id;
               //console.log(userdata);
+              $ionicLoading.show();
               var req = $http.get('http://eservicetracker.com/api/services/getServiceList.php?id='+$sessionStorage.user_id);
               req.success(function(data,status,header,config){
                   $scope.messages = data;
                   console.log(data);
-                  //$ionicLoading.hide();
+                  $ionicLoading.hide();
               })
               req.error(function(data, status, headers, config) {
                   console.log("error in http request");
@@ -170,7 +237,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     }
 })
 
-.controller('volunteerFormCtrl',function($scope,$http,$ionicLoading,$state,$sessionStorage,$localStorage){
+.controller('volunteerFormCtrl',function($scope,$http,$ionicLoading,$state,$sessionStorage,$localStorage, $ionicModal){
 
         $scope.$on('$ionicView.enter',function(){
               //get Advisor Names and service types
@@ -182,15 +249,19 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
                     //console.log(data.service_types);
                   }
               });
+              $ionicModal.fromTemplateUrl('contact-modal.html', {
+                scope: $scope,
+                animation: 'slide-in-down'
+              }).then(function(modal) {
+                $scope.modal = modal
+              })  
         })
 
         $scope.submit = function(service){
-
             var tempService=service;
             var date = $scope.date;
-
             tempService.std_id=$sessionStorage.user_id;
-            tempService.date = date;
+            //tempService.date = date;
             console.log(tempService);
             $localStorage.vltrData = tempService;
             $ionicLoading.show(); 
@@ -198,12 +269,18 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
             res.success(function(data, status, headers, config) {
                 if(status == 200){
                   //console.log(data);
-                  $state.go('app.volunteerForm.success');
+                  $scope.modal.show();
+                  $scope.msgtitle="Submit Volunteer Service";
+                  $scope.msgbody="You have successfully submitted your volunter service form.";
+                  //$state.go('app.serviceHistory');
                 }
             });
             $ionicLoading.hide();
         };
-
+        $scope.goBack = function(){
+            $scope.modal.hide();
+            $state.go('app.serviceHistory');
+        }
 
         $scope.datepickerObject = {
               titleLabel: 'Title',  //Optional
@@ -254,45 +331,90 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
         $state.go('app.volunteerForm');
     }
 })
-.controller('volunteerFormEditCtrl',function($scope,$localStorage,$sessionStorage,$ionicLoading,$http,$state){
-      //var service = {};
+.controller('volunteerFormEditCtrl',function($scope,$localStorage,$sessionStorage,$ionicLoading,$http,$state,$ionicModal){
+      $scope.service = {};
+
+      $ionicModal.fromTemplateUrl('contact-modal.html', {
+          scope: $scope,
+          animation: 'slide-in-down'
+      }).then(function(modal) {
+          $scope.modal = modal;
+      })  
+
+      $scope.$on('$ionicView.enter',function(){
+              $ionicLoading.show();
+              var data = $localStorage.singleHistoryData;
+              var res = $http.post('http://eservicetracker.com/api/services/getSingleServiceList.php',data.ser_id);
+                  res.success(function(data, status, headers, config) {
+                      if(status == 200){
+                          //$scope.service_info = data.service_info.services;
+                          //console.log(data.st_info.st);
+                          //make changes in the view
+                          $scope.service.orgname = data.service_info.services[0].org_name;
+                          $scope.service.orgdesc = data.service_info.services[0].org_desc;
+                          $scope.service.hours = parseInt(data.service_info.services[0].ser_hr);
+                          $scope.service.date = data.service_info.services[0].ser_date;
+                          //console.log(data.service_info.services[0].ser_date);
+                          $scope.service.location = data.service_info.services[0].org_address;
+                          $scope.advList = data.advisor_info.advisor;
+                          $scope.stList= data.st_info.st;
+                          $scope.service.supervisor = data.supervisor_info.supervisor[0].sup_fname;
+                          $scope.service.telephone = data.supervisor_info.supervisor[0].sup_phone;
+                          $scope.service.sEmail = data.supervisor_info.supervisor[0].sup_email;
+
+                          //select advisor from dropdown list
+                          for(var i=0;i<data.advisor_info.advisor.length;i++){
+                              if(data.service_info.services[0].adv_id == data.advisor_info.advisor[i].adv_id){
+                                  $scope.service.advisor = data.advisor_info.advisor[i];
+                              }
+                          }
+                          for(var i=0;i<data.st_info.st.length;i++){
+                              if(data.service_info.services[0].serty_id == data.st_info.st[i].serty_id){
+                                  //console.log($localStorage.data.advisors[i]["adv_fname"]);
+                                  $scope.service.serviceType = data.st_info.st[i];
+                              }
+                          }
+                          $ionicLoading.hide();
+                  }
+            });
+      })
 
       $scope.submit = function(service){
-        
+          $scope.modal.show();
+          var data = $localStorage.singleHistoryData;
           var tempService=service;
-          var date = $scope.date;
+          //console.log(tempService);
+          tempService.advisor=service.advisor.adv_id;
+          tempService.serviceType=service.serviceType.serty_id;
+          tempService.ser_id = data.ser_id;
+          //console.log(tempService.date);
+          //console.log(service.date);
+          //tempService.date = $scope.date;
+          console.log(tempService.date);
 
           tempService.std_id=$sessionStorage.user_id;
-          tempService.date = date;
           console.log(tempService);
-          $localStorage.vltrData = tempService;
-          $ionicLoading.show(); 
           var res = $http.post('http://eservicetracker.com/api/services/editVolunteerForm.php?edit=new',tempService);
           res.success(function(data, status, headers, config) {
               if(status == 200){
-                console.log(data);
-                $state.go('app.volunteerForm.success');
+                //alert("success".data);
+                $scope.msgtitle = "Update Successful!";
+                $scope.msgbody = "You have successfully update service for "+service.orgname;
+                $scope.modalShown = true;
+                //console.log(data);
+                //$state.go('est.serviceHistory');
               }
           });
-          $ionicLoading.hide();
       };
 
+      $scope.gotoServiceHistory = function(){
+          $state.go("app.serviceHistory");
+      }
 
-              console.log($localStorage.vltrData);
-              $scope.service = {};
-              var data = $localStorage.vltrData;
-              console.log(data.orgname+"--->");
-              $scope.service.orgname = data.orgname;
-              $scope.service.orgdesc = data.orgdesc;
-              $scope.service.location = data.location;
-              $scope.service.hours = data.hours;
-              $scope.date = data.date;
-              $scope.service.advisor = data.advisor;
-              $scope.service.serviceType = data.serviceType;
-              $scope.service.supervisor = data.supervisor;
-              $scope.service.telephone = data.telephone;
-              $scope.service.sEmail = data.sEmail;
-
+      $scope.goBack = function(){
+          $state.go("app.serviceHistory");
+          $scope.modal.hide();
+      }
       
       $scope.datepickerObject = {
             titleLabel: 'Title',  //Optional
@@ -338,6 +460,9 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     $scope.myNumber = 0;
     $scope.disop = true;
     $scope.val = 1;
+
+    $scope.pactive="white";
+    $scope.cactive="black";
     var profileData;
 
      $ionicModal.fromTemplateUrl('contact-modal.html', {
@@ -349,9 +474,13 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
 
     $scope.tabPassword = function(){
         $scope.myNumber = 1;
+        $scope.pactive = "black";
+        $scope.cactive = "white";
     }
     $scope.tabProfile = function(){
         $scope.myNumber = 0;
+        $scope.cactive = "black";
+        $scope.pactive = "white";
     }     
     // function to evaluate if a number is even
     $scope.isEven = function(value) {
@@ -373,7 +502,12 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
         $scope.val = 0;
         $scope.disop = false;
     }
-    $scope.closeModal = function(){
+
+    $scope.cancelProfile = function(){
+        $scope.val = 1;
+        $scope.disop = true;
+    }
+    $scope.goBack = function(){
         $scope.modal.hide();
     }
     $scope.saveProfile = function(profile){
@@ -442,17 +576,20 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
         });
     });
     $scope.$on("$ionicView.afterLeave",function(){
-        $scope.modal.remove();
+        //$scope.modal.remove();
         console.log("modal removed");
     })
 })
-.controller('LoginCtrl', function($scope,$http,$state,$stateParams,$ionicLoading,$sessionStorage) {
+.controller('LoginCtrl', function($scope,$http,$state,$stateParams,$ionicLoading,$sessionStorage,md5) {
     
-    $scope.login = function(loginData){
-            //alert(data.username + data.password);
-            //console.log($stateParams);
+    $scope.login = function(login){
+            var loginInfo = [];
+            var email = md5.createHash(login.user);
+            var pass = md5.createHash(login.pass);
+            loginInfo["email"] = email;
+            loginInfo["pass"] = pass;
             $ionicLoading.show();
-            var q = $http.post('http://eservicetracker.com/api/services/auth.php',loginData);
+            var q = $http.post('http://eservicetracker.com/api/services/auth.php',{email:email, pass:pass});
             q.success(function(data, status, headers, config){
                    if(data.status == 1){
                         $sessionStorage.user_id = data.std_id;
@@ -462,12 +599,22 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
                         $ionicLoading.hide();
                    }
                    else{
-                        $scope.message = "username or password is invalid";
-                        $ionicLoading.hide();
-                   }         
+                    //console.log(data);
+                    if(data.status==402){
+                      $ionicLoading.hide();
+                      $scope.message = "username or password is invalid";
+                    }else if(data.status==403){
+                      $ionicLoading.hide();
+                      $scope.message="Account Inactive"
+                      alert("Your account is currently Inactive. Please contact your advisor for further information");
+                    }
+                    
+                }         
              });
 
     }
+
+ 
 })
 .controller('dashCtrl', function($scope,$http,$sessionStorage) {
     $scope.date = new Date();
@@ -477,7 +624,9 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
           q.success(function(data, status, headers, config){
                  if(status == 200){
                       $scope.messages = data;
-                      console.log(data);
+                      $scope.total_hr = data.Hours.total_hours_done;
+                      $scope.min_hr = data.Hours.est_hour;
+                      //console.log(data);
                   }
                  else{
   

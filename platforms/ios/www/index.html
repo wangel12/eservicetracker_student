@@ -2,24 +2,30 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <title>eServiceTracker</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto%3A400%2C300" rel="stylesheet" type="text/css">
-
+    
     <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <!-- <link href="lib/ionic/css/bootstrap.min.css" rel="stylesheet"> -->
+    
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
 
     <link href="css/style.css" rel="stylesheet">
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet" type="text/css"> 
     <!-- JS  -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-<script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
+    <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
 
     <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
 <!-- <script src="cordova.js"></script> -->
     <script src="js/ngStorage.js"></script>
     <script src="js/ngMessages.js"></script>
+    <script src="js/angular-md5.js"></script>
+    <script src="js/toArrayFilter.js"></script>
     <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
@@ -30,8 +36,8 @@
   </head>
 
   <body ng-app="starter" class="platform-ios platform-cordova platform-webview">
-
+  <div class="container-fluid">
     <ion-nav-view></ion-nav-view>
-
+  </div>  
   </body>
 </html>

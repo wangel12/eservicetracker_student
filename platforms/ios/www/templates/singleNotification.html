@@ -1,0 +1,22 @@
+<ion-view>
+
+<ion-content>
+		<ui-view name="breadcrumb">
+                <div class="row padding title_breadcrumb_box padding-bottom">
+                    
+                    <div class="col">
+                        <p class="title text-center">Message DETAIL</p>
+                    </div>
+                   
+                </div>
+            </ui-view>
+            <br><br>    
+    <div class="list card">    
+	  <div class="item item-divider">
+	    <i class="icon ion-ios-bell-outline"></i>&nbsp;{{messages.nl_title}}
+	  </div>
+	  <a class="item">{{messages.nl_msg}}</a>	      
+    </div> 
+    &nbsp;&nbsp;<a class="button btn-green" href="#/app/notification"><i class="ion-arrow-left-c"></i>&nbsp;Go Back</a> 
+</ion-content>
+</ion-view>

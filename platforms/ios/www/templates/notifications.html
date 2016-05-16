@@ -1,16 +1,20 @@
-<ion-view view-title="Notification">
-	<div class="list">
+<ion-view>
 
-	  <br><br>
-<div class="item item-divider">
-	    Recent Updates
-	  </div>
-	  <a class="item" href="#">Your volunteer hour has been rejected</a>
-	  <a class="item" href="#">Your volunteer hour has been accepted</a>
-	  <a class="item" href="#">Your volunteer hour has been rejected</a>
-	  <a class="item" href="#">Your volunteer hour is in pending</a>
-	  <a class="item" href="#">Joe Bell sent you a message</a>
-	</div>
+<ion-content>
+		<ui-view name="breadcrumb">
+                <div class="row padding title_breadcrumb_box padding-bottom">
+                    
+                    <div class="col">
+                        <p class="title text-center">Messages</p>
+                    </div>
+                   
+                </div>
+        </ui-view>
+        <br><br>
+	  <div class="list card">
+	       <div class="item item-divider"><i class="icon ion-ios-bell-outline"></i>&nbsp;New Messages From Advisor</div>
+	       <div class="item" ng-repeat="x in messages.noti" ng-click="goToSingleNotifiction(x)">{{x.nl_title}}</div>		
+      </div>
 
-
+</ion-content>
 </ion-view>

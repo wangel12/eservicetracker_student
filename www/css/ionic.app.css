@@ -93,7 +93,7 @@ $dark:                            #444 !default;
 .history_box {
   margin-bottom: 10px;
   border-bottom: 1px solid #eaeaea;
-  padding-top: 10px;
+  padding-top: 0px;
   background: #f0f0f0; }
   .history_box .item {
     width: 100% !important;
@@ -106,7 +106,7 @@ $dark:                            #444 !default;
     padding-bottom: 10px; }
     .history_box .org-info .org-desc {
       display: block;
-      padding-top: 10px;
+      padding-top: 0px;
       padding-left: 10px;
       width: 100%; }
       .history_box .org-info .org-desc i {
@@ -115,7 +115,7 @@ $dark:                            #444 !default;
         font-weight: bold;
         padding-left: 10px; }
       .history_box .org-info .org-desc span {
-        font-size: 22px;
+        font-size: 18px;
         font-weight: 400;
         padding-left: 5px;
         letter-spacing: 0px; }
@@ -146,7 +146,7 @@ $dark:                            #444 !default;
     padding: 30px 0;
     /*Modals Title*/ }
     .modal .head-bar .title {
-      font-size: 28px;
+      font-size: 18px;
       color: white;
       padding-top: 40px;
       padding-bottom: 20px;
@@ -158,3 +158,6 @@ $dark:                            #444 !default;
   .modal .msgbody p {
     padding: 0px !important;
     margin: 0px !important; }
+
+.btn-edit {
+  color: #e64e42; }

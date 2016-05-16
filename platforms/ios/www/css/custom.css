@@ -1,0 +1,80 @@
+/*Custom Buttons*/
+.btn-del{
+    color:rgb(230,78,66);
+    border:2px solid rgb(230,78,66);
+    border-radius: 3px;
+    background-color: transparent;
+}
+.btn-green{
+    background-color:rgb(75,204,104);
+    border:2px solid rgb(75,204,104);
+    border-radius: 3px;
+    color: white;
+}
+.btn-white{
+    background: transparent;
+    border: 2px solid #fff;
+    color:#fff;
+}
+.btn-white:hover{
+    color: #ffffff;
+}
+
+
+.btn-green:hover{
+    background-color: rgb(75,220,104);
+    color: white;
+}
+.btn-del:hover{
+    background-color:rgb(230,78,66);
+    color: white;
+}
+
+.mid-text{
+    font-size: 24px;
+    font-weight: 300;
+}
+.list{
+    background: transparent;
+}
+.text-white{
+    color:white;
+}
+.errormsg{
+    color: red;
+}
+
+
+.login-container{
+    padding:0; position:absolute; bottom:0;top:0; background-color:rgb(53,73,93);
+}
+.login-box {
+    background-color: rgb(236,240,241);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.menu-hr{
+    background-color: rgb(40,25,54) ;
+}
+
+
+.item-input{
+    padding: 10px;
+    border: 2px solid #EAEAEA;
+}
+
+/*Angular validation css*/
+.ng-invalid-required.ng-touched{
+        border-color: rgb(230,78,66);
+}
+.ng-invalid-pattern.ng-touched{
+    border-color: rgb(230,78,66);
+}
+.ng-invalid-minlength.ng-touched{
+        border-color: rgb(230,78,66);
+}
+.ng-active p {
+    color: rgb(230,78,66);
+    font-style: italic;
+}

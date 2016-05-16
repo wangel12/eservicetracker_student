@@ -2,26 +2,26 @@
 <ion-view>
 <ion-content>
  <div class="row padding title_breadcrumb_box padding-bottom">
-      <div class="col col-33">
-      	<!-- <a class="icon-circle icon-circle-outline"><i class="icon ion-android-arrow-back"></i></a> -->
-      </div>
-      <div class="col col-33">
+    
+      <div class="col">
           <p class="title text-center">Service History Record</p>
       </div>
-      <div class="col col-33 text-right">
-      	<!-- <a class="icon-circle icon-circle-outline" ng-click="closeButton()"><i class="icon ion-close"></i></a> -->
-      </div>
+
   </div>
 <div class="row">
-	<div class="col col-50 col-offset-25" ng-hide="hideBox">
+	<div class="col" ng-hide="hideBox">
 		<br><br>
 		<div class="row padd0">
 			<div class="col">
-				<label><b>Organization</b>: {{messages.org_name}}</label>
-				
+				<label><b>Organization</b>: {{messages.org_name}}</label>	
 			</div>
+			<div class="col text-right">
+				<a class="btn btn-edit" ng-click="editHistory(messages)" ng-if="messages.sers_id == 3">Edit &nbsp;<i class="icon ion-edit"></i></a>
+			</div>
+		</div><hr>
+		<div class="row padd0">
 			<div class="col">
-				<label><b>Service Hour</b>: {{messages.ser_hr}}</label>
+				<label><b>Service Hours</b>: {{messages.ser_hr}}</label>
 			</div>
 			<div class="col">
 				<label><b>Status</b>: 
@@ -33,33 +33,43 @@
 					</b> 
 				</label>
 			</div>
-		</div>
-		<hr><br>
+		</div><br>
+		
 		<div class="row" style="background:#EAEAEA;">
-			<b class="text-center col col-100">Service Description</b>
+			<b class="col col-100">Service Description</b>
 		</div>
 		<div class="row" style="background:#EAEAEA;">
 			<p class="col col-100">{{ messages.org_desc}}</p>	
 		</div>
-		<br><hr><br>
+		<hr>
 		<div class="row">
 			<div class="col"><label><b>Date of Service:</b> {{ messages.ser_date | date:'dd-MM-yyyy'}}</label></div>
+		</div>
+		<hr>
+		<div class="row">
 			<div class="col"><label><b>Location</b>: {{messages.org_address}}</label></div>
 		</div>
-		<br><hr><br>
+		<hr>
 		<div class="row">
 			<div class="col"><label><b>Advisor:</b> {{ messages.adv_fname + " " +messages.adv_lname}}</label></div>
 			<div class="col"><label><b>Supervisor</b>: {{ messages.supervisor_fname}}</label></div>
 		</div>
-		<br><hr><br>
+		<hr>
+		<div class="row">
+			<div class="col"><label><b>Supervisor Email:</b> {{ messages.sup_email}}</label></div>
+		</div><hr>
+		<div class="row">
+			<div class="col"><label><b>Contact:</b><b ng-if="messages.sup_phone==''">N/A</b> {{ messages.sup_phone}}</label></div>
+		</div>
+		<hr><br>
 
-		<a class="button button-assertive" ng-click="goBack()"><i class="icon ion-arrow-left-c">&nbsp;</i>Go Back</a>
-		<a class="button button-positive" ng-click="deleteForm()" ng-if="messages.sers_id == 3">Delete Form</a>
+		<a class="button btn-green" ng-click="goBack()"><i class="icon ion-arrow-left-c">&nbsp;</i>Go Back</a>
+		<a class="button btn-del" ng-click="deleteForm()" ng-if="messages.sers_id == 3">Delete Form</a>
 
 		<!-- <a ng-if="messages.sers_id == 3" class="button button-positive" ng-click="editForm()">Edit This Form</a> -->
 	</div>
-	<div class="col col-50 col-offset-25 success-box padd0" ng-hide="successBox">
-			<div class="header-bar blue-bg">
+	<div class="col success-box padd0" ng-hide="successBox">
+			<div class="header-bar blue-bg text-center">
 				<i class="icon ion-ios-checkmark-outline"></i>
 			</div>
 			<div class="header-content">
@@ -69,7 +79,7 @@
 				<p class="text-center">You have successfully deleted service record.</p>
 				<br>
 				<div class="btn-container">
-					<button class="button button-assertive" ng-click="goBack()"><i class="icon ion-arrow-left-c"></i>&nbsp;&nbsp;Go Back</button>
+					<button class="button btn-green" ng-click="goBack()"><i class="icon ion-arrow-left-c"></i>&nbsp;&nbsp;Go Back</button>
 				</div>
 			</div>
 	</div>

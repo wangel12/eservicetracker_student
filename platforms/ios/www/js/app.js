@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['starter.controllers','ngStorage','ngMessages','ionic-datepicker'])
+angular.module('starter', ['starter.controllers','ngStorage','ngMessages','ionic-datepicker','angular-toArrayFilter','angular-md5'])
 
-.run(function($ionicPlatform,$sessionStorage,$http) {
+.run(function($ionicPlatform,$sessionStorage,$http,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -22,14 +22,7 @@ angular.module('starter', ['starter.controllers','ngStorage','ngMessages','ionic
     }
     $sessionStorage.status = false;
 
-    var push = new Ionic.Push({
-      "debug": true
-    });
 
-    push.register(function(token) {
-      console.log("Device token:",token.token);
-      push.saveToken(token);  // persist the token in the Ionic Platform
-    });
 
  });
 
@@ -95,10 +88,19 @@ angular.module('starter', ['starter.controllers','ngStorage','ngMessages','ionic
       }
     }
   })
-  .state('app.volunteerForm.success', {
+  .state('app.singleNotification', {
+    url: '/message',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/singleNotification.html',
+        controller:'singleNotificationCtrl'
+      }
+    }
+  })
+  .state('app.success', {
     url: '/success',
     views: {
-      'successView': {
+      'menuContent': {
         templateUrl: 'templates/formSuccess.html',
         controller:'volunteerFormSuccessCtrl'
       }
@@ -122,16 +124,15 @@ angular.module('starter', ['starter.controllers','ngStorage','ngMessages','ionic
         }
       }
     })
-   // .state('app.serviceHistory.singleHistory', {
-   //    url: '/singleHistory',
-   //    views: {
-   //      'serviceView': {
-   //        templateUrl: 'templates/singleHistory.html',
-   //        controller:'singleHistoryCtrl'
-        
-   //      }
-   //    }
-   //  })
+   .state('app.editHistory', {
+      url: '/ediHistory',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/editForm.html',
+          controller:'volunteerFormEditCtrl'   
+        }
+      }
+    })
     .state('app.singleHistory', {
       url: '/singleHistory',
       views: {
@@ -146,7 +147,8 @@ angular.module('starter', ['starter.controllers','ngStorage','ngMessages','ionic
       url: '/notification',
       views: {
         'menuContent': {
-          templateUrl: 'templates/notifications.html'
+          templateUrl: 'templates/notifications.html',
+          controller:'notificationCtrl'
         }
       }
     })
