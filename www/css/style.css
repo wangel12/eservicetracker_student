@@ -301,5 +301,19 @@ hr {
 .tab-box {
     padding: 15px 0;
 }
+.date-label{
+    position: relative;
+    height: 40px;
+}
+input.dateClass{
+    background-color: white;
+    left: 0;
+}
+.date-place-holder{
+    font-size: 14px;
+    color: #aaaaaa;
+    display: block;
+    width: 100%;
+}
 
 

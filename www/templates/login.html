@@ -1,6 +1,4 @@
-
- 
- <ion-content style="background-color: rgb(55,73,92);"> 
+<ion-content style="background-color: rgb(55,73,92);"> 
     <div class="col login-container">
       <div class="list list-inset">
             <div class="text-center"><img src="img/est_logo_200px.png" style="width:100px;"></div>
@@ -29,10 +27,12 @@
                   </label>
                 
                 <button class="button button-block btn-green" 
+                                id="loginBtn"
                                 ng-click="login(loginForm)"
                                 ng-disabled="loginForm.$invalid">
                                 Login
                 </button>
+                <div class="test_now">{{status}}</div>
             </form>
             </div>
             <br>

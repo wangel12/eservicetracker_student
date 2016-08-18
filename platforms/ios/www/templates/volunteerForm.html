@@ -71,13 +71,18 @@
 						</label>
 				</ionic-datepicker> -->
 				<div class="row">
-					<label class="item item-input col">
-						<input 
-								type="date" 
-								placeholder="Date of Service" 
+
+					<label class="item item-input col date-label">
+						<span class="date-place-holder" id="abc">Date of Service</span>
+						<input  type="date" 
+								placeholder="" 
+								id="testdate"
+								class="dateClass"
 								value="{{ date | date:'dd-MM-yyyy'}}"
 								ng-model="service.date"
+								onfocus="(abc.display='none')" 
 								required>
+								
 						</label>
 				</div>
 				
@@ -164,7 +169,7 @@
 				  	<div ng-messages-include="error-messages"></div>
 				</div><br>	
 				<div class="row">
-			  	<button class="button btn-green col" ng-click="submit(service)" ng-disabled="serviceForm.$invalid">
+			  	<button class="button btn-green col" ng-click="submit(service)" ng-disabled="">
 			   		Submit Form
 			   	</button>
 			   	</div>

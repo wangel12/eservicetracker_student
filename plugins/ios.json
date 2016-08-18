@@ -8,26 +8,29 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.example.est"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.example.est"
+            "PACKAGE_NAME": "com.eservicetracker.etracker"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.example.est"
+            "PACKAGE_NAME": "com.eservicetracker.etracker"
         },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.example.est"
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.eservicetracker.etracker"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.example.est"
+            "PACKAGE_NAME": "com.eservicetracker.etracker"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.eservicetracker.etracker"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.eservicetracker.etracker"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.example.est"
+            "PACKAGE_NAME": "com.eservicetracker.etracker"
         },
         "phonegap-plugin-push": {
             "SENDER_ID": "GCM_PROJECT_NUMBER",
-            "PACKAGE_NAME": "com.example.est"
+            "PACKAGE_NAME": "com.eservicetracker.etracker"
         }
     },
     "dependent_plugins": {}

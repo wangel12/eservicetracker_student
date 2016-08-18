@@ -31,7 +31,6 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     }).then(function(popover) {
       $scope.popover = popover;
     });
-
     $scope.openPopover = function($event) {
       $scope.popover.show($event);
     };
@@ -76,9 +75,14 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
             var res = $http.post('http://eservicetracker.com/api/services/getNotificationMessages.php');
                 res.success(function(data, status, headers, config) {
                     if(status == 200){
-                        $scope.messages = data;
-                        //console.log(data);
-                        $ionicLoading.hide();
+                        if(data.noti){
+                            $scope.dataIsBlank = false;
+                            $scope.messages = data;
+                            $ionicLoading.hide(); 
+                        }else{
+                          $scope.dataIsBlank = true;
+                            $ionicLoading.hide();
+                        }
                     }
             }); 
     })
@@ -92,14 +96,15 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
    $scope.messages = $localStorage.notificationData;
 })
 
+//Register Controller
 .controller('registerCtrl',function($scope,$http,$ionicLoading,$state,md5){
 
     $scope.$on('$ionicView.enter',function(){
           var req = $http.get('http://eservicetracker.com/api/services/getPatternSettings.php');
           req.success(function(data,status,header,config){
               console.log(data);
-              //$scope.pattern='[A-Za-z0-9\_\.]+\@+prep-villa+\.+com';
-              $scope.pattern='[A-Za-z0-9\_\.]+\@+'+data.email+'+\.+com';
+              $scope.pattern='[A-Za-z0-9\_\.]+\@+prep-villa+\.+com';
+              //$scope.pattern='[A-Za-z0-9\_\.]+\@+'+data.email+'+\.+com';
               //$activityIndicator.stopAnimating();
           })
     })
@@ -124,7 +129,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     //REGISTRATION
     $scope.submit = function(register){
             $ionicLoading.show();
-            var email = md5.createHash(register.email);
+            var email = register.email;
             var password = md5.createHash(register.password);
             register.enEmail = email;
             register.enPass = password;
@@ -454,7 +459,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
       var weekDaysList = ["Sun", "Mon", "Tue", "Wed", "thu", "Fri", "Sat"];
       var monthList =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 })
-.controller('profileCtrl',function($scope,$state,$http,$sessionStorage,$ionicLoading,$localStorage,$ionicModal){
+.controller('profileCtrl',function($scope,$state,$http,$sessionStorage,$ionicLoading,$localStorage,$ionicModal,md5){
 
     // set the default value of our number
     $scope.myNumber = 0;
@@ -491,7 +496,7 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
     };
     // function to evaluate if a number is even
     $scope.isSave = function(value) {
-      console.log(value);
+      //console.log(value);
       if (value % 2 == 0)
         return true;
       else 
@@ -534,25 +539,28 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
 
     }
 
+
+    //**------------------------
+    //ON CHANGE PASSWORD CLICKED
+    //**------------------------
     $scope.changePassword=function(data){
+          //save everything in passdata.
           var passdata = data;
           passdata.std_id = $sessionStorage.user_id;
-          console.log(passdata);
-          var q = $http.post('http://eservicetracker.com/api/services/savePassword.php',passdata);
-          q.success(function(data, status, headers, config){
-               if(status == 200){
-                      console.log(data);
+          passdata.new = md5.createHash(passdata.new);
+          //REST Call
+          var promise = $http.post('http://eservicetracker.com/api/services/savePassword.php',passdata);
+          promise.success(function(data, status, headers, config){
+              if(status == 200){
                       $scope.msgtitle="Password Change";
                       $scope.msgbody="You have successfully changed your password";
                       $scope.modal.show();
-                      data = {};
-                      //$scope.val = 1;
-                      //$scope.disop = true;
+                      passdata.new = null;
+                      passdata.renew = null;
               }
-               else{
-                    //$scope.message = "username or password is invalid";
-                    $ionicLoading.hide();
-               }         
+              else{
+                  $ionicLoading.hide();
+              }         
          });
     }
 
@@ -560,13 +568,12 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
           $ionicLoading.show();
           $scope.profile = {};
           var std_id = $sessionStorage.user_id;
-          console.log(std_id);
+          //console.log(std_id);
             var q = $http.post('http://eservicetracker.com/api/services/getStudentInfo.php',std_id);
             q.success(function(data, status, headers, config){
                    if(status == 200){
                         $localStorage.stdInfo = data;
                         $scope.profile = data;
-                        console.log($scope.profile);
                         $ionicLoading.hide();
                    }
                    else{
@@ -580,23 +587,33 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
         console.log("modal removed");
     })
 })
-.controller('LoginCtrl', function($scope,$http,$state,$stateParams,$ionicLoading,$sessionStorage,md5) {
+
+
+
+//**------------------------
+//LOGIN CONTROLLER----------
+//**------------------------
+.controller('LoginCtrl', function($scope,$http,$state,$stateParams,$ionicLoading,$sessionStorage,md5,$localStorage) {
     
     $scope.login = function(login){
             var loginInfo = [];
-            var email = md5.createHash(login.user);
+            var email = login.user;
             var pass = md5.createHash(login.pass);
             loginInfo["email"] = email;
             loginInfo["pass"] = pass;
-            $ionicLoading.show();
+
             var q = $http.post('http://eservicetracker.com/api/services/auth.php',{email:email, pass:pass});
+            q.success(function(data, status, headers, config){
+                console.log(headers);
+                console.log(data);        
+             });            
             q.success(function(data, status, headers, config){
                    if(data.status == 1){
                         $sessionStorage.user_id = data.std_id;
                         $sessionStorage.user_fname = data.std_fname;
                         $sessionStorage.status = true;
                         $state.go('app.dashboard');
-                        $ionicLoading.hide();
+                        //$ionicLoding.hide();
                    }
                    else{
                     //console.log(data);
@@ -616,20 +633,45 @@ app.controller('AppCtrl',function($scope,$state,$sessionStorage,$ionicPopover,$i
 
  
 })
-.controller('dashCtrl', function($scope,$http,$sessionStorage) {
+//**------------------------**//
+//DASHBOARD CONTROLLER--------//
+//**------------------------**//
+.controller('dashCtrl', function($scope,$http,$sessionStorage,$localStorage) {
     $scope.date = new Date();
     $scope.$on('$ionicView.beforeEnter',function(){
-          console.log("i am in dashboard view");
+            // var promise = $http({
+            //     method: 'GET',
+            //     url: 'http://eservicetracker.com/api/services/test.php',
+            //     headers: {
+            //         //'Content-Type':'Application/JSON'
+            //         'Authorization': 'Bearer ' + $localStorage.JWT
+            //         //or
+            //         //'Authorization': 'Basic ' + 'token'
+            //     }
+            // }).then(function successCallback(response) {
+            //     console.log(response.data);
+            //     //$localStorage.JWT = response.data.jwt;
+            //     //$state.go('app.dashboard');
+            // }, function errorCallback(response) {
+            //     if(response.status = 401){ // If you have set 401
+            //         console.log("ohohoh")
+            //     }
+            // });
           var q = $http.post('http://eservicetracker.com/api/services/getDashboardList.php?id='+$sessionStorage.user_id);
           q.success(function(data, status, headers, config){
-                 if(status == 200){
-                      $scope.messages = data;
+                  if(status == 200){
+                      if(!data.data){
+                          $scope.dataIsBlank = true;
+                      }else{
+                        $scope.dataIsBlank = false;
+                        $scope.messages = data;
+                      }
                       $scope.total_hr = data.Hours.total_hours_done;
                       $scope.min_hr = data.Hours.est_hour;
                       //console.log(data);
                   }
                  else{
-  
+              
                  }         
            });
     })

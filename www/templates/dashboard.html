@@ -1,6 +1,5 @@
 <ion-view>
         <ion-content>
-
            <ui-view name="breadcrumb">
                 <div class="row padding title_breadcrumb_box padding-bottom">
                     
@@ -11,14 +10,19 @@
                 </div>
             </ui-view>
             <br><br>
-                <p class="text-center">Total Hours Accepted: <b>{{total_hr}} hrs</b>, Min Required <b>{{min_hr}} hrs</b></p>
+                <p class="text-center" ng-if="total_hr!=0">Total Hours Accepted: <b>{{total_hr}} hrs</b>, Min Required <b>{{min_hr}} hrs</b></p>
                 <br>
                 <div class="list card">
                   <div class="item item-divider">
                     <p>Recent Activity</p>
                   </div>
-                  <div class="item" ng-repeat="x in messages.data">
-                    {{x.message}} for {{x.org_name}}<b class="sub-content">Date: {{x.act_date}} | Time: {{x.act_time}}</b> 
+                  <div ng-if="dataIsBlank==true">
+                      <p class="text-center"><b>You have no recent activity</b></p>
+                  </div>
+                  <div ng-if="dataIsBlank==false">
+                        <div class="item" ng-repeat="x in messages.data">
+                          {{x.message}} for {{x.org_name}}<b class="sub-content">Date: {{x.act_date}} | Time: {{x.act_time}}</b> 
+                        </div>
                   </div>
                 </div>
 

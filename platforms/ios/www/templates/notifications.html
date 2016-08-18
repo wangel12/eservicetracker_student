@@ -13,7 +13,8 @@
         <br><br>
 	  <div class="list card">
 	       <div class="item item-divider"><i class="icon ion-ios-bell-outline"></i>&nbsp;New Messages From Advisor</div>
-	       <div class="item" ng-repeat="x in messages.noti" ng-click="goToSingleNotifiction(x)">{{x.nl_title}}</div>		
+           <div class="item text-center" ng-if="dataIsBlank==true"><b>No messages to display</b></div>
+	       <div class="item" ng-repeat="x in messages.noti" ng-click="goToSingleNotifiction(x)" ng-if="dataIsBlank==false">{{x.nl_title}}</div>		
       </div>
 
 </ion-content>

@@ -53,8 +53,14 @@
             "id": "phonegap-plugin-push"
         },
         "is_top_level": true,
-        "variables": {
-            "SENDER_ID": "GCM_PROJECT_NUMBER"
-        }
+        "variables": {}
+    },
+    "cordova-plugin-network-information": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-network-information"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
